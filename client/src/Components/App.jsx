@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Calendar from './Calendar/Calendar.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -8,7 +9,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>hi</div>
+      <div>
+        <Calendar/>
+      </div>
     )
   }
 }

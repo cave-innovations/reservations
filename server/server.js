@@ -7,6 +7,6 @@ const app = express();
 const port = 3000;
 app.use(express.static('./public'));
 
-morgan('common');
+app.use(morgan('dev'));
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
