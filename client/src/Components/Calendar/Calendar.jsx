@@ -36,12 +36,12 @@ class Calendar extends React.Component {
       }
       // make blank blocks until startDay
       if (startDay < this.state.startDay || date > this.state.numDays) {
-        startDay++;
+        startDay += 1;
         row.push(<td key={calendarIndex} id={calendarIndex} className="blankBlocks" />);
       } else {
         // check if date is availble - add css accordingly
-        var blockClass;
-        var onClick;
+        let blockClass;
+        let onClick;
         if (this.state.datesAvailable[date]) {
           blockClass = 'dateBlocks';
           onClick = (event) => this.dateClickHandler.bind(this)(event);
@@ -49,14 +49,15 @@ class Calendar extends React.Component {
           blockClass = 'blockBlocks';
           onClick = () => {};
         }
-        row.push(<td key={calendarIndex} id={calendarIndex} className={blockClass}>
-          <div className="dateText" onClick={onClick}>
-  {date}
-  {' '}
-</div>
-
-        </td>);
-        date++;
+        row.push(
+          <td key={calendarIndex} id={calendarIndex} className={blockClass}>
+            <div className="dateText" onClick={onClick}>
+              {date}
+              {' '}
+            </div>
+          </td>,
+        );
+        date += 1;
       }
       // push row into calendar matrix when filled
       if (col === 6) {
