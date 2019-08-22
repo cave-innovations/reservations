@@ -4,7 +4,7 @@ module.exports = {
         "es6": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    "extends": './node_modules/eslint-config-airbnb/index.js',
     "globals": {
          "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"

@@ -1,18 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Calendar from './Calendar/Calendar.jsx';
+import Calendar from './Calendar/Calendar';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      boop: '',
+    };
   }
 
   render() {
     return (
       <div>
-        <Calendar/>
+        <Calendar />
       </div>
-    )
+    );
   }
 }
 
