@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const Promise = require('bluebird');
+const faker = require('faker');
 const createTables = require('./config');
 
 const database = 'reservation';
@@ -23,7 +24,7 @@ db.connectAsync()
   .then(() => {
     // create 100 listings
     for (let i = 1; i <= 100; i += 1) {
-      const name = 'Palace';
+      const name = faker.address.streetName();
       const pricing = Math.floor(Math.random() * 60) + 16;
       const maxGuests = Math.floor(Math.random() * 10) + 1;
       const stars = Math.floor(Math.random() * 5) + 1;

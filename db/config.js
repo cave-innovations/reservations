@@ -4,7 +4,7 @@ module.exports = (db) => {
   if (!db.queryAsync) {
     db = Promise.promisifyAll(db);
   }
-  // Create listings table
+  // Create Listings table
   return db.queryAsync(`
     CREATE TABLE IF NOT EXISTS listings (
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -15,14 +15,16 @@ module.exports = (db) => {
       reviews INT,
       stars INT
     );`)
-    // Create dates table
-    .then(() => (`
+    .then(() => (
+      // Create dates table
+      db.queryAsync(`
         CREATE TABLE IF NOT EXISTS dates (
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           available BOOLEAN DEFAULT TRUE,
           monthID INT,
           listingID INT
-        );`))
+        );`)
+    ))
     .error((err) => {
       console.log(err);
     });
