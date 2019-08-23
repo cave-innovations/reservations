@@ -1,48 +1,39 @@
 import React from 'react';
 
-const numDays = [31, 30, 31];
-const startDay = [4, 7, 2];
+const numDaysArr = [31, 30, 31];
+const startDayArr = [4, 7, 2];
 
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      datesAvailable: new Array(31).fill(0),
-      numDays: 31,
-      startDay: 3,
       calendarArray: [],
     };
-    const { datesAvailable } = this.state;
-    for (let i = 0; i < 31; i += 3) {
-      datesAvailable[i] = 1;
-    }
     this.setState = this.setState.bind(this);
   }
 
   componentDidMount() {
-    console.log('mounting');
-    if (this.props.ready) {
-      this.createCalendar.bind(this)();
-    }
   }
 
   // create calendar
   createCalendar() {
-    console.log('creating');
-    const { calendarArray } = this.state;
+    const { monthID } = this.props;
+    const startDayMax = startDayArr[monthID];
     let startDay = 1;
+    const numDays = numDaysArr[monthID];
     let date = 1;
     let calendarIndex = 0;
+    let row;
 
     // run loop until all of days of month are created and row is filled
-    while (date < this.state.numDays || col !== 6) {
+    while (date < numDays || col !== 6) {
       var { rowInd, col } = this.calendarIndex2ColRowIndex(calendarIndex);
       // start new row every 7 blocks
       if (col === 0) {
-        var row = [];
+        row = [];
       }
       // make blank blocks until startDay
-      if (startDay < this.state.startDay || date > this.state.numDays) {
+      if (startDay < startDayMax || date > numDays) {
         startDay += 1;
         row.push(<td key={calendarIndex} id={calendarIndex} className="blankBlocks" />);
       } else {
@@ -60,7 +51,6 @@ class Calendar extends React.Component {
           <td key={calendarIndex} id={calendarIndex} className={blockClass}>
             <div className="dateText" onClick={onClick}>
               {date}
-              {' '}
             </div>
           </td>,
         );
@@ -70,7 +60,7 @@ class Calendar extends React.Component {
       if (col === 6) {
         this.state.calendarArray.push(<tr key={rowInd} id={rowInd}>{row}</tr>);
       }
-      calendarIndex++;
+      calendarIndex += 1;
     }
   }
 

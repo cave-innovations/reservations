@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const morgan = require('morgan');
 const db = require('../db/db');
 
@@ -18,7 +17,6 @@ app.use(morgan('dev'));
 app.get('/api/listings', (req, res) => {
   const { query } = req;
   const { ID, monthID } = query;
-  console.log(monthID);
   db.getListings(ID, monthID, (data) => {
     res.send(data);
   });
