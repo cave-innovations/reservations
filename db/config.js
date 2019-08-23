@@ -15,17 +15,15 @@ module.exports = (db) => {
       reviews INT,
       stars INT
     );`)
-    .then(() => {
-      // Create dates table
-      return db.queryAsync(`
+    // Create dates table
+    .then(() => (`
         CREATE TABLE IF NOT EXISTS dates (
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           available BOOLEAN DEFAULT TRUE,
           monthID INT,
           listingID INT
-        );`);
-    })
-    .error(err => {
+        );`))
+    .error((err) => {
       console.log(err);
     });
 };
