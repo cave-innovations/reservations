@@ -1,5 +1,8 @@
 import React from 'react';
 
+const numDays = [31, 30, 31];
+const startDay = [4, 7, 2];
+
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
@@ -17,11 +20,15 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    this.createCalendar.bind(this)();
+    console.log('mounting');
+    if (this.props.ready) {
+      this.createCalendar.bind(this)();
+    }
   }
 
   // create calendar
   createCalendar() {
+    console.log('creating');
     const { calendarArray } = this.state;
     let startDay = 1;
     let date = 1;
@@ -42,7 +49,7 @@ class Calendar extends React.Component {
         // check if date is availble - add css accordingly
         let blockClass;
         let onClick;
-        if (this.state.datesAvailable[date]) {
+        if (this.props.dates[date - 1].available) {
           blockClass = 'dateBlocks';
           onClick = (event) => this.dateClickHandler.bind(this)(event);
         } else {
@@ -65,7 +72,6 @@ class Calendar extends React.Component {
       }
       calendarIndex++;
     }
-    this.setState({ calendarArray });
   }
 
   calendarIndex2ColRowIndex(dateIndex) {
@@ -80,6 +86,9 @@ class Calendar extends React.Component {
   }
 
   render() {
+    if (this.props.ready) {
+      this.createCalendar.bind(this)();
+    }
     return (
       <div>
         <table>
