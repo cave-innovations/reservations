@@ -1,4 +1,5 @@
 import React from 'react';
+import Date from './Date';
 
 const numDaysArr = [31, 30, 31];
 const startDayArr = [5, 0, 3];
@@ -17,6 +18,11 @@ class Calendar extends React.Component {
 
   // create calendar
   createCalendar() {
+    const { ready } = this.props;
+    if (!(ready)) {
+      return;
+    }
+
     const { monthID, dates } = this.props;
     const { calendarArray } = this.state;
     const startDayMax = startDayArr[monthID];
@@ -36,24 +42,11 @@ class Calendar extends React.Component {
       // make blank blocks until startDay
       if (startDay < startDayMax || date > numDays) {
         startDay += 1;
-        row.push(<td key={calendarIndex} id={calendarIndex} className="blankBlocks" />);
+        row.push(<td key={calendarIndex + col} id={calendarIndex} className="blankBlocks" />);
       } else {
         // check if date is availble - add css accordingly
-        let blockClass;
-        let onClick;
-        if (dates[date - 1].available) {
-          blockClass = 'dateBlocks';
-          onClick = (event) => this.dateClickHandler.bind(this)(event);
-        } else {
-          blockClass = 'blockBlocks';
-          onClick = () => {};
-        }
         row.push(
-          <td key={calendarIndex} id={calendarIndex} className={blockClass}>
-            <div className="dateText" onClick={onClick}>
-              {date}
-            </div>
-          </td>,
+          <Date key={date + col} date={date} available={dates[date - 1].available} calendarIndex={calendarIndex} />,
         );
         date += 1;
       }
@@ -63,6 +56,7 @@ class Calendar extends React.Component {
       }
       calendarIndex += 1;
     }
+    return calendarArray;
   }
 
   calendarIndex2ColRowIndex(dateIndex) {
@@ -79,14 +73,11 @@ class Calendar extends React.Component {
   render() {
     const { calendarArray } = this.state;
     const { ready } = this.props;
-    if (ready) {
-      this.createCalendar.bind(this)();
-    }
     return (
       <div>
         <table>
           <tbody>
-            {calendarArray}
+            {this.createCalendar.bind(this)()}
           </tbody>
         </table>
       </div>
