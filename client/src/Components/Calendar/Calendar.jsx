@@ -46,7 +46,7 @@ class Calendar extends React.Component {
       } else {
         // check if date is availble - add css accordingly
         row.push(
-          <Date key={date + col} date={date} available={dates[date - 1].available} calendarIndex={calendarIndex} />,
+          <Date key={date + col} date={date} available={dates[date - 1].available} />,
         );
         date += 1;
       }
@@ -65,14 +65,7 @@ class Calendar extends React.Component {
     return { rowInd, col };
   }
 
-
-  dateClickHandler(event) {
-    console.log(event.target);
-  }
-
   render() {
-    const { calendarArray } = this.state;
-    const { ready } = this.props;
     return (
       <div>
         <table>

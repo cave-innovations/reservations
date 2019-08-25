@@ -20,7 +20,7 @@ class Date extends React.Component {
 
   render() {
     const {
-      available, date, calendarIndex, blockClass,
+      available, date,
     } = this.props;
 
     return (
