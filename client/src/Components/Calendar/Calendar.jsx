@@ -1,7 +1,7 @@
 import React from 'react';
 
 const numDaysArr = [31, 30, 31];
-const startDayArr = [4, 7, 2];
+const startDayArr = [5, 0, 3];
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -17,7 +17,8 @@ class Calendar extends React.Component {
 
   // create calendar
   createCalendar() {
-    const { monthID } = this.props;
+    const { monthID, dates } = this.props;
+    const { calendarArray } = this.state;
     const startDayMax = startDayArr[monthID];
     let startDay = 1;
     const numDays = numDaysArr[monthID];
@@ -40,7 +41,7 @@ class Calendar extends React.Component {
         // check if date is availble - add css accordingly
         let blockClass;
         let onClick;
-        if (this.props.dates[date - 1].available) {
+        if (dates[date - 1].available) {
           blockClass = 'dateBlocks';
           onClick = (event) => this.dateClickHandler.bind(this)(event);
         } else {
@@ -58,7 +59,7 @@ class Calendar extends React.Component {
       }
       // push row into calendar matrix when filled
       if (col === 6) {
-        this.state.calendarArray.push(<tr key={rowInd} id={rowInd}>{row}</tr>);
+        calendarArray.push(<tr key={rowInd} id={rowInd}>{row}</tr>);
       }
       calendarIndex += 1;
     }
@@ -76,14 +77,16 @@ class Calendar extends React.Component {
   }
 
   render() {
-    if (this.props.ready) {
+    const { calendarArray } = this.state;
+    const { ready } = this.props;
+    if (ready) {
       this.createCalendar.bind(this)();
     }
     return (
       <div>
         <table>
           <tbody>
-            {this.state.calendarArray}
+            {calendarArray}
           </tbody>
         </table>
       </div>

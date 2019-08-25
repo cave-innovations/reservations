@@ -8,17 +8,18 @@ class App extends React.Component {
     this.state = {
       listing: {},
       dates: {},
-      monthID: 0,
+      monthID: 1,
       ready: false,
     };
     this.setState = this.setState.bind(this);
   }
 
   componentDidMount() {
+    const { monthID } = this.state;
     axios.get('/api/listings', {
       params: {
         ID: 1,
-        monthID: this.state.monthID,
+        monthID,
       },
     })
       .then((response) => {
@@ -27,9 +28,12 @@ class App extends React.Component {
   }
 
   render() {
+    const {
+      listing, dates, ready, monthID,
+    } = this.state;
     return (
       <div>
-        <Calendar listing={this.state.listing} dates={this.state.dates} ready={this.state.ready} monthID={this.state.monthID} />
+        <Calendar listing={listing} dates={dates} ready={ready} monthID={monthID} />
       </div>
     );
   }
