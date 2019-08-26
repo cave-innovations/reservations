@@ -1,5 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 import Date from './Date';
+import ButtonsAndHeaders from './ButtonsAndHeaders';
 
 const numDaysArr = [31, 30, 31];
 const startDayArr = [5, 0, 3];
@@ -9,6 +11,7 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       calendarArray: [],
+      monthID: props.monthID,
     };
     this.setState = this.setState.bind(this);
   }
@@ -24,7 +27,8 @@ class Calendar extends React.Component {
     }
 
     const { monthID, dates } = this.props;
-    const { calendarArray } = this.state;
+    // const { calendarArray } = this.state;
+    const calendarArray = [];
     const startDayMax = startDayArr[monthID];
     let startDay = 1;
     const numDays = numDaysArr[monthID];
@@ -56,7 +60,8 @@ class Calendar extends React.Component {
       }
       calendarIndex += 1;
     }
-    return calendarArray;
+    this.state.calendarArray = calendarArray;
+    this.state.monthID = monthID;
   }
 
   calendarIndex2ColRowIndex(dateIndex) {
@@ -66,16 +71,28 @@ class Calendar extends React.Component {
   }
 
   render() {
+    this.createCalendar();
+    const { monthID, calendarArray } = this.state;
     return (
-      <div>
-        <table>
+      <CalendarWrapper>
+        <ButtonsAndHeaders monthID={monthID} changeMonth={this.props.changeMonth.bind(this)} />
+        <Table>
           <tbody>
-            {this.createCalendar.bind(this)()}
+            {calendarArray}
           </tbody>
-        </table>
-      </div>
+        </Table>
+      </CalendarWrapper>
     );
   }
 }
+const CalendarWrapper = styled.div`
+  height: 332px;
+  width:308px;
+  text-align:center;
+`;
+
+const Table = styled.table`
+display: inline-block;
+`;
 
 export default Calendar;

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import Calendar from './Calendar/Calendar';
 
 class App extends React.Component {
@@ -14,17 +15,28 @@ class App extends React.Component {
     this.setState = this.setState.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(direction = 0) {
     const { monthID } = this.state;
     axios.get('/api/listings', {
       params: {
         ID: 1,
-        monthID,
+        monthID: monthID + direction,
       },
     })
       .then((response) => {
-        this.setState({ listing: response.data.listing, dates: response.data.dates, ready: true });
+        this.setState({
+          listing: response.data.listing, dates: response.data.dates, ready: true, monthID: monthID + direction,
+        });
       });
+  }
+
+  changeMonth(direction) {
+    // dir = 1 move ahead
+    if (direction) {
+      this.componentDidMount(direction);
+    } else {
+      this.componentDidMount();
+    }
   }
 
   render() {
@@ -32,11 +44,10 @@ class App extends React.Component {
       listing, dates, ready, monthID,
     } = this.state;
     return (
-      <div>
-        <Calendar listing={listing} dates={dates} ready={ready} monthID={monthID} />
-      </div>
+      <Calendar listing={listing} dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
     );
   }
 }
+
 
 export default App;

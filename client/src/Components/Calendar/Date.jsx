@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 class Date extends React.Component {
   constructor(props) {
     super(props);
@@ -35,6 +34,8 @@ const StyledDate = styled.td`
   &:hover {
     background-color: ${(props) => (props.available ? 'rgb(228, 231, 231)' : '')};
   }
+
+  cursor: ${(props) => (props.available ? 'pointer' : '')};
 
   border: 1px solid rgb(228, 231, 231);
   border-collapse: collapse;
