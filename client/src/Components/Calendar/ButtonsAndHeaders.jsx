@@ -17,11 +17,11 @@ class Button extends React.Component {
     return (
       <div>
         <StyledButton onClick={() => changeMonth.bind(this)(-1)}>
-          {'<-'}
+          &#8592;
         </StyledButton>
         <Month><strong>{`${monthNames[monthID]} 2019`}</strong></Month>
         <StyledButton direction={1} onClick={() => changeMonth.bind(this)(1)}>
-          {'->'}
+          &#8594;
         </StyledButton>
 
         <List>
@@ -56,9 +56,8 @@ const Month = styled.div`
   font-family: "Helvetica Neue", sans-serif;
   font-weight: bold;
   // padding-top: 22px;
-  // padding-bottom: 37px;
+  padding-bottom: 10px;
   display: inline-block;
-  padding: 6px 9px;
 `;
 
 const StyledButton = styled.button`

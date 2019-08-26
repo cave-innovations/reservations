@@ -21,6 +21,7 @@ class Info extends React.Component {
     return (
       <StyledInfo>
         <TopHeader reviews={reviews} pricing={pricing} stars={stars} />
+        <Text>Dates</Text>
       </StyledInfo>
     );
   }
@@ -35,6 +36,17 @@ const StyledInfo = styled.div`
   padding-bottom: 24px;
   border: 1px solid #e4e4e4;
   background-color: #ffffff
+`;
+
+const Text = styled.span`
+  margin-left:2px;
+  display: inline-block;
+  overflow-wrap: break-word;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.33333em;
+  color: rgb(72, 72, 72);
 `;
 
 export default Info;

@@ -54,6 +54,7 @@ const Price = styled.span`
   line-height: 1.44444em;
   color: rgb(72, 72, 72)
 `;
+
 const PerNight = styled.span`
   margin-left:2px;
   display: inline-block;
@@ -99,7 +100,7 @@ const EmptyStars = styled.div`
 
 const DividerBar = styled.div`
   margin-top: 17px;
-  margin-bot: 17px;
+  margin-bottom: 17px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color:  #EBEBEB;
