@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 const monthNames = ['August', 'September', 'October'];
@@ -76,5 +77,15 @@ const StyledButton = styled.button`
   display: inline-block;
   float: ${(props) => (props.direction ? 'right' : 'left')}
 `;
+
+Button.propTypes = {
+  monthID: PropTypes.number,
+  changeMonth: PropTypes.func,
+};
+
+Button.defaultProps = {
+  monthID: null,
+  changeMonth: null,
+};
 
 export default Button;

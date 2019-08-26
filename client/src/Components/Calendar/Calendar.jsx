@@ -38,7 +38,7 @@ class Calendar extends React.Component {
 
     // run loop until all of days of month are created and row is filled
     while (date < numDays || col !== 6) {
-      var { rowInd, col } = this.calendarIndex2ColRowIndex(calendarIndex);
+      var { rowInd, col } = calendarIndex2ColRowIndex(calendarIndex);
       // start new row every 7 blocks
       if (col === 0) {
         row = [];
@@ -64,12 +64,6 @@ class Calendar extends React.Component {
     this.state.monthID = monthID;
   }
 
-  calendarIndex2ColRowIndex(dateIndex) {
-    const rowInd = Math.floor(dateIndex / 7);
-    const col = dateIndex % 7;
-    return { rowInd, col };
-  }
-
   render() {
     this.createCalendar();
     const { monthID, calendarArray } = this.state;
@@ -92,7 +86,13 @@ const CalendarWrapper = styled.div`
 `;
 
 const Table = styled.table`
-display: inline-block;
+  display: inline-block;
 `;
+
+const calendarIndex2ColRowIndex = (dateIndex) => {
+  const rowInd = Math.floor(dateIndex / 7);
+  const col = dateIndex % 7;
+  return { rowInd, col };
+};
 
 export default Calendar;

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 import Calendar from './Calendar/Calendar';
+import Info from './Info/Info';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,12 +11,18 @@ class App extends React.Component {
       dates: {},
       monthID: 1,
       ready: false,
+      stars: null,
+      reviews: null,
+      views: null,
+      name: '',
+      maxGuests: '',
+      pricing: null,
     };
     this.setState = this.setState.bind(this);
   }
 
   componentDidMount(direction = 0) {
-    const { monthID } = this.state;
+    let { monthID } = this.state;
     axios.get('/api/listings', {
       params: {
         ID: 1,
@@ -24,8 +30,9 @@ class App extends React.Component {
       },
     })
       .then((response) => {
+        monthID += direction;
         this.setState({
-          listing: response.data.listing, dates: response.data.dates, ready: true, monthID: monthID + direction,
+          listing: response.data.listing, dates: response.data.dates, ready: true, monthID,
         });
       });
   }
@@ -44,7 +51,10 @@ class App extends React.Component {
       listing, dates, ready, monthID,
     } = this.state;
     return (
-      <Calendar listing={listing} dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
+      <div>
+        <Info listing={listing} />
+        <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
+      </div>
     );
   }
 }
