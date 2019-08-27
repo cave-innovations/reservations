@@ -55,7 +55,7 @@ const Month = styled.div`
   text-align: center;
   font-family: "Helvetica Neue", sans-serif;
   font-weight: bold;
-  // padding-top: 22px;
+  padding-top: 22px;
   padding-bottom: 10px;
   display: inline-block;
 `;

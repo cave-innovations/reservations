@@ -80,9 +80,10 @@ class Calendar extends React.Component {
   }
 }
 const CalendarWrapper = styled.div`
-  height: 332px;
-  width:308px;
+  width: 332px;
+  height: 308px;
   text-align:center;
+  border: 1px solid #e4e4e4;
 `;
 
 const Table = styled.table`
