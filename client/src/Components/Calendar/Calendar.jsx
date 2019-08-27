@@ -104,10 +104,17 @@ const CalendarWrapper = styled.div`
   border: 1px solid #e4e4e4;
   z-index: 1;
   background: white;
+  overflow:hidden;
 `;
 
 const Table = styled.table`
   display: inline-block;
+
+  transition: transform 0.25s;
+
+  ${CalendarWrapper}:onclick & {
+    transform: translate(-100%); /* Standard syntax */
+  }
 `;
 
 const calendarIndex2ColRowIndex = (dateIndex) => {
