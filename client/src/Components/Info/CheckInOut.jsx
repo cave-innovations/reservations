@@ -172,7 +172,7 @@ const DivIn = styled.div`
 
 const DivOut = styled.div`
   padding: 0px 6px;
-  color: ${(props) => (!(props.showCalendar && !props.inOut) ? 'rgb(117, 117, 117)' : 'rgb(0, 122, 135)')};
+  color: ${(props) => (!(props.showCalendar && !props.inOut) ? 'rgb(117, 117, 117)gs' : 'rgb(0, 122, 135)')};
   overflow: hidden;
   background: ${(props) => (!(props.showCalendar && !props.inOut) ? 'initial' : 'rgb(153, 237, 230)')};
   border-color: ${(props) => (!(props.showCalendar && !props.inOut) ? 'initial' : 'rgb(153, 237, 230)')};
