@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-undef */
 import React from 'react';
 import { shallow, configure } from 'enzyme';
@@ -20,8 +21,6 @@ describe('should render calendar and date components', () => {
 });
 
 describe('should render date components', () => {
-  const dates = [{ available: 0 }, { available: 0 }, { available: 1 }, { available: 1 }, { available: 0 }, { available: 0 }, { available: 0 }, { available: 1 }, { available: 1 }, { available: 0 }, { available: 0 }, { available: 0 }, { available: 0 }, { available: 1 }, { available: 0 }, { available: 0 }, { available: 0 }, { available: 1 }, { available: 0 }, { available: 1 }, { available: 0 }, { available: 1 }, { available: 0 }, { available: 1 }, { available: 0 }, { available: 1 }, { available: 1 }, { available: 0 }, { available: 0 }, { available: 0 }, { available: 0 }];
-
   const date = 30;
   const wrapper = shallow(<Date available={1} date={date} />);
   it('should render the dates components', () => {

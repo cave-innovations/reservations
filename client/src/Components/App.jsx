@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Calendar from './Calendar/Calendar';
+import Info from './Info/Info';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,21 +11,39 @@ class App extends React.Component {
       dates: {},
       monthID: 1,
       ready: false,
+      stars: null,
+      reviews: null,
+      views: null,
+      name: '',
+      maxGuests: '',
+      pricing: null,
     };
     this.setState = this.setState.bind(this);
   }
 
-  componentDidMount() {
-    const { monthID } = this.state;
+  componentDidMount(direction = 0) {
+    let { monthID } = this.state;
     axios.get('/api/listings', {
       params: {
         ID: 1,
-        monthID,
+        monthID: monthID + direction,
       },
     })
       .then((response) => {
-        this.setState({ listing: response.data.listing, dates: response.data.dates, ready: true });
+        monthID += direction;
+        this.setState({
+          listing: response.data.listing, dates: response.data.dates, ready: true, monthID,
+        });
       });
+  }
+
+  changeMonth(direction) {
+    // dir = 1 move ahead
+    if (direction) {
+      this.componentDidMount(direction);
+    } else {
+      this.componentDidMount();
+    }
   }
 
   render() {
@@ -33,7 +52,8 @@ class App extends React.Component {
     } = this.state;
     return (
       <div>
-        <Calendar listing={listing} dates={dates} ready={ready} monthID={monthID} />
+        <Info listing={listing} dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
+        <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
       </div>
     );
   }
