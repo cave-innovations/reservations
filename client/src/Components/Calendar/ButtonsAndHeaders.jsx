@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-const monthNames = ['August', 'September', 'October'];
+const monthNames = ['August', 'September', 'October', 'November', 'December'];
 
 class Button extends React.Component {
   constructor(props) {
@@ -15,14 +15,16 @@ class Button extends React.Component {
   render() {
     const { monthID, changeMonth } = this.props;
     return (
-      <div>
-        <StyledButton onClick={() => changeMonth.bind(this)(-1)}>
-          &#8592;
-        </StyledButton>
+      <div style={{ width: '100%' }}>
+        <ButtonDiv>
+          <StyledButton onClick={() => changeMonth.bind(this)(-1)}>
+            &#8592;
+          </StyledButton>
+          <StyledButton direction={1} onClick={() => changeMonth.bind(this)(1)}>
+            &#8594;
+          </StyledButton>
+        </ButtonDiv>
         <Month><strong>{`${monthNames[monthID]} 2019`}</strong></Month>
-        <StyledButton direction={1} onClick={() => changeMonth.bind(this)(1)}>
-          &#8594;
-        </StyledButton>
 
         <List>
           {dayNames.map((day) => (<Day key={day}><small>{day}</small></Day>))}
@@ -50,14 +52,23 @@ const Day = styled.li`
 `;
 
 const Month = styled.div`
+  width:100%;
   color: rgb(72, 72, 72);
   font-size: 18px;
   text-align: center;
   font-family: "Helvetica Neue", sans-serif;
   font-weight: bold;
   padding-top: 22px;
-  padding-bottom: 10px;
+  padding-bottom: 17px;
   display: inline-block;
+`;
+
+const ButtonDiv = styled.div`
+  position: absolute
+  width: 100%;
+  padding: 0px 20px;
+  padding-top: 20px;
+  box-sizing: border-box;
 `;
 
 const StyledButton = styled.button`
@@ -67,14 +78,15 @@ const StyledButton = styled.button`
   color: rgb(117, 117, 117);
   line-height: 0.78;
   margin: 0px;
+  font-size: 12px;
   border-width: 1px;
   border-style: solid;
   border-color: rgb(228, 231, 231);
   border-image: initial;
   border-radius: 3px;
-  padding: 10px 9px;
+  padding: 10px 10px;
   display: inline-block;
-  float: ${(props) => (props.direction ? 'right' : 'left')}
+  float: ${(props) => (!props.direction ? 'left' : 'right')};
 `;
 
 Button.propTypes = {

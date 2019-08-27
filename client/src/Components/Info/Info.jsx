@@ -26,12 +26,11 @@ class Info extends React.Component {
       <StyledInfo>
         <TopHeader reviews={reviews} pricing={pricing} stars={stars} />
         <Text>Dates</Text>
-        <CheckInOut dates={dates} ready={ready} monthID={monthID} changeMonth={this.props.changeMonth.bind(this)}></CheckInOut>
+        <CheckInOut dates={dates} ready={ready} monthID={monthID} changeMonth={this.props.changeMonth.bind(this)} />
       </StyledInfo>
     );
   }
 }
-
 const StyledInfo = styled.div`
   height: 422px;
   width: 326px;

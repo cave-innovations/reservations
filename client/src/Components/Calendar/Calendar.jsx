@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Date from './Date';
 import ButtonsAndHeaders from './ButtonsAndHeaders';
 
-const numDaysArr = [31, 30, 31];
-const startDayArr = [5, 0, 3];
+const numDaysArr = [31, 30, 31, 30, 31];
+const startDayArr = [5, 0, 3, 5, 0];
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -13,10 +13,26 @@ class Calendar extends React.Component {
       calendarArray: [],
       monthID: props.monthID,
     };
+    this.calendar = React.createRef();
     this.setState = this.setState.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
+    window.addEventListener('click', this.handleClick, false);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.handleClick, false);
+  }
+
+  handleClick(e) {
+    if (this.calendar.current.contains(e.target) || this.props.domRef.current.contains(e.target)) {
+      // click is within target, do nothing
+      return;
+    }
+    const { toggleCalendar } = this.props;
+    toggleCalendar(false, null);
   }
 
   // create calendar
@@ -68,7 +84,7 @@ class Calendar extends React.Component {
     this.createCalendar();
     const { monthID, calendarArray } = this.state;
     return (
-      <CalendarWrapper>
+      <CalendarWrapper ref={this.calendar}>
         <ButtonsAndHeaders monthID={monthID} changeMonth={this.props.changeMonth.bind(this)} />
         <Table>
           <tbody>
@@ -80,10 +96,14 @@ class Calendar extends React.Component {
   }
 }
 const CalendarWrapper = styled.div`
+  position: relative;
+  top: -10px;
   width: 332px;
   height: 308px;
   text-align:center;
   border: 1px solid #e4e4e4;
+  z-index: 1;
+  background: white;
 `;
 
 const Table = styled.table`
