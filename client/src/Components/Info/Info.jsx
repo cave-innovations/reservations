@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TopHeader from './TopHeader';
+import CheckInOut from './CheckInOut';
 
 class Info extends React.Component {
   constructor(props) {
@@ -11,6 +12,9 @@ class Info extends React.Component {
   }
 
   render() {
+    const {
+      dates, ready, monthID,
+    } = this.props;
     const { listing } = this.props;
     if (!listing.length) {
       return null;
@@ -22,6 +26,7 @@ class Info extends React.Component {
       <StyledInfo>
         <TopHeader reviews={reviews} pricing={pricing} stars={stars} />
         <Text>Dates</Text>
+        <CheckInOut dates={dates} ready={ready} monthID={monthID} changeMonth={this.props.changeMonth.bind(this)}></CheckInOut>
       </StyledInfo>
     );
   }

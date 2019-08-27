@@ -52,12 +52,11 @@ class App extends React.Component {
     } = this.state;
     return (
       <div>
-        <Info listing={listing} />
+        <Info listing={listing} dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
         <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
       </div>
     );
   }
 }
-
 
 export default App;

@@ -11,7 +11,6 @@ class TopHeader extends React.Component {
 
   render() {
     const { reviews, pricing, stars } = this.props;
-    console.log(stars);
     return (
       <StyledHeader>
         <Div>
