@@ -8,23 +8,24 @@ class CheckInOutt extends React.Component {
     this.state = {
       showCalendar: false,
       inOut: false,
+      changeMonth: props.changeMonth.bind(this),
     };
 
     this.childRef = React.createRef();
     this.setState = this.setState.bind(this);
+    this.toggleCalendar = this.toggleCalendar.bind(this);
   }
 
   toggleCalendar(change, boo) {
-    const { showCalendar } = this.state;
     this.setState({ showCalendar: change, inOut: boo });
   }
 
   render() {
     const {
-      listing, dates, ready, monthID,
+      dates, ready, monthID,
     } = this.props;
     const {
-      inOut, showCalendar,
+      inOut, showCalendar, changeMonth,
     } = this.state;
     return (
       <div>
@@ -73,7 +74,7 @@ class CheckInOutt extends React.Component {
                   </CalendarSvgIn>
                 )}
 
-              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={this.props.changeMonth.bind(this)} toggleCalendar={this.toggleCalendar.bind(this)} domRef={this.childRef} />
+              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} toggleCalendar={this.toggleCalendar} domRef={this.childRef} />
             </div>
           )
 
@@ -146,7 +147,7 @@ const CheckInOut = styled.div`
   background: rgb(255, 255, 255);
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
 `;
-const Input = styled.input`
+export const Input = styled.input`
   box-sizing: border-box;
   font-size: 16px;
   opacity: 0;
@@ -160,7 +161,7 @@ const Input = styled.input`
   border-color: initial;
   border-image: initial;
 `;
-const DivIn = styled.div`
+export const DivIn = styled.div`
   padding: 0px 6px;
   color: ${(props) => (!(props.showCalendar && props.inOut) ? 'rgb(117, 117, 117)' : 'rgb(0, 122, 135)')};
   overflow: hidden;
@@ -170,7 +171,7 @@ const DivIn = styled.div`
 
 `;
 
-const DivOut = styled.div`
+export const DivOut = styled.div`
   padding: 0px 6px;
   color: ${(props) => (!(props.showCalendar && !props.inOut) ? 'rgb(117, 117, 117)gs' : 'rgb(0, 122, 135)')};
   overflow: hidden;

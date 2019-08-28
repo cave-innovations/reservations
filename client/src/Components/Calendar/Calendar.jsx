@@ -12,6 +12,7 @@ class Calendar extends React.Component {
     this.state = {
       calendarArray: [],
       monthID: props.monthID,
+      changeMonth: props.changeMonth.bind(this),
     };
     this.calendar = React.createRef();
     this.setState = this.setState.bind(this);
@@ -82,10 +83,10 @@ class Calendar extends React.Component {
 
   render() {
     this.createCalendar();
-    const { monthID, calendarArray } = this.state;
+    const { monthID, calendarArray, changeMonth } = this.state;
     return (
       <CalendarWrapper ref={this.calendar}>
-        <ButtonsAndHeaders monthID={monthID} changeMonth={this.props.changeMonth.bind(this)} />
+        <ButtonsAndHeaders monthID={monthID} changeMonth={changeMonth} />
         <Table>
           <tbody>
             {calendarArray}
@@ -96,8 +97,8 @@ class Calendar extends React.Component {
   }
 }
 const CalendarWrapper = styled.div`
-  position: relative;
-  top: -10px;
+  position: absolute;
+  top: 174px;
   width: 332px;
   height: 308px;
   text-align:center;

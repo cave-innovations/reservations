@@ -51,7 +51,7 @@ const Day = styled.li`
   text-align: center;
 `;
 
-const Month = styled.div`
+export const Month = styled.div`
   width:100%;
   color: rgb(72, 72, 72);
   font-size: 18px;
@@ -71,7 +71,7 @@ const ButtonDiv = styled.div`
   box-sizing: border-box;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   cursor: pointer;
   user-select: none;
   background-color: rgb(255, 255, 255);

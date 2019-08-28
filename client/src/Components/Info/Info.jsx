@@ -2,18 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import TopHeader from './TopHeader';
 import CheckInOut from './CheckInOut';
+import Guest from './Guest';
 
 class Info extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      changeMonth: props.changeMonth.bind(this),
     };
   }
 
   render() {
     const {
-      dates, ready, monthID,
+      dates, ready, monthID, changeMonth,
     } = this.props;
     const { listing } = this.props;
     if (!listing.length) {
@@ -26,12 +27,18 @@ class Info extends React.Component {
       <StyledInfo>
         <TopHeader reviews={reviews} pricing={pricing} stars={stars} />
         <Text>Dates</Text>
-        <CheckInOut dates={dates} ready={ready} monthID={monthID} changeMonth={this.props.changeMonth.bind(this)} />
+        <CheckInOut dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} />
+
+        <GuestWrap>
+
+          <Text>Guests</Text>
+          <Guest maxGuests={maxGuests} />
+        </GuestWrap>
       </StyledInfo>
     );
   }
 }
-const StyledInfo = styled.div`
+export const StyledInfo = styled.div`
   height: 422px;
   width: 326px;
   padding-left: 24px;
@@ -53,4 +60,7 @@ const Text = styled.span`
   color: rgb(72, 72, 72);
 `;
 
+const GuestWrap = styled.div`
+  padding-top: 15px;
+`;
 export default Info;
