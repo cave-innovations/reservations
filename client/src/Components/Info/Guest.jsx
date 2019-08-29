@@ -200,7 +200,7 @@ const Test = styled.div`
 
 const ButtonContainer = styled.div`
   position: absolute;
-  left: 230px;
+  left: 195px;
   display: flex;
   justify-content: flex-end;
 `;
@@ -235,19 +235,30 @@ export const ButtonRight = styled.span`
 `;
 const Close = styled.div`
   position: relative;
+  pointer: cursor;
   display: flex;
   justify-content: flex-end;
   &:hover{
     text-decoration: underline;
   }
+  color: rgb(0, 132, 137);
+  font-weight: 500;
 `;
 export const DropDownContainer = styled.div`
+  position: absolute;
+  box-sizing: border-box;
+  width: 326px;
   padding: 15px;
   padding-top: 0px;
   border-width: 1px;
   border-style: solid;
   border-color: rgb(235, 235, 235);
   border-radius: 2px;
+  background: white;
+  border-top-color: rgb(0, 132, 137);
+  border-top-width: 2px;
+
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px
 `;
 
 const Text = styled.div`

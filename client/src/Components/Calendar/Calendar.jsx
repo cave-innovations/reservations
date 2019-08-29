@@ -13,10 +13,12 @@ class Calendar extends React.Component {
       calendarArray: [],
       monthID: props.monthID,
       changeMonth: props.changeMonth.bind(this),
+      slideRight: false,
     };
     this.calendar = React.createRef();
     this.setState = this.setState.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.slideHandler = this.slideHandler.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +27,14 @@ class Calendar extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('click', this.handleClick, false);
+  }
+
+  slideHandler(direction) {
+    const { changeMonth, slideRight } = this.state;
+    changeMonth(direction);
+    if (direction === 1) {
+      this.setState({ slideRight: true });
+    }
   }
 
   handleClick(e) {
@@ -83,10 +93,12 @@ class Calendar extends React.Component {
 
   render() {
     this.createCalendar();
-    const { monthID, calendarArray, changeMonth } = this.state;
+    const {
+      monthID, calendarArray, changeMonth, slideRight,
+    } = this.state;
     return (
-      <CalendarWrapper ref={this.calendar}>
-        <ButtonsAndHeaders monthID={monthID} changeMonth={changeMonth} />
+      <CalendarWrapper ref={this.calendar} slideRight={slideRight}>
+        <ButtonsAndHeaders monthID={monthID} changeMonth={this.slideHandler} />
         <Table>
           <tbody>
             {calendarArray}
@@ -98,7 +110,7 @@ class Calendar extends React.Component {
 }
 const CalendarWrapper = styled.div`
   position: absolute;
-  top: 174px;
+  top: 179px;
   width: 332px;
   height: 308px;
   text-align:center;
@@ -106,6 +118,9 @@ const CalendarWrapper = styled.div`
   z-index: 1;
   background: white;
   overflow:hidden;
+  // box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+  // transform: ${(props) => (props.slideRight ? 'translateX(-314px)' : 'translateX(0)')};
+  // transition: ${(props) => (props.slideRight ? 'transform 200ms ease-in-out 0s' : '')};
 `;
 
 const Table = styled.table`
