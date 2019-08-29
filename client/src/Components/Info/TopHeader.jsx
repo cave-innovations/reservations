@@ -33,7 +33,7 @@ class TopHeader extends React.Component {
           </Reviews>
         </div>
 
-        <DividerBar />
+        {/* <DividerBar /> */}
       </StyledHeader>
     );
   }
@@ -44,6 +44,7 @@ const StyledHeader = styled.div`
 `;
 const Div = styled.div`
   height: 28px;
+  padding-bottom: 5px;
 `;
 const Span = styled.span`
 display: inline-block;

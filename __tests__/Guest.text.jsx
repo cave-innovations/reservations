@@ -10,7 +10,7 @@ import Guest, {
 configure({ adapter: new Adapter() });
 
 describe('should render Guest component', () => {
-  const wrapper = shallow(<Guest maxGuests={5} />);
+  const wrapper = shallow(<Guest maxGuests={5} setState={() => (1)} />);
   it('should render Guest component', () => {
     expect(wrapper.find(Container).length).toBe(1);
   });

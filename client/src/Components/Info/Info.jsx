@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TopHeader from './TopHeader';
 import CheckInOut from './CheckInOut';
 import Guest from './Guest';
+import Reserve from './Reserve';
 
 class Info extends React.Component {
   constructor(props) {
@@ -29,18 +30,27 @@ class Info extends React.Component {
     return (
       <StyledInfo>
         <TopHeader reviews={reviews} pricing={pricing} stars={stars} numGuests={numGuests} />
+
+        <DividerBar />
+
         <Text>Dates</Text>
         <CheckInOut dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} />
 
         <GuestWrap>
-
           <Text>Guests</Text>
           <Guest maxGuests={maxGuests} setState={this.setState} />
         </GuestWrap>
+
+        <Reserve />
+
+
+        <DividerBar />
+
       </StyledInfo>
     );
   }
 }
+
 export const StyledInfo = styled.div`
   height: 422px;
   width: 326px;
@@ -65,5 +75,13 @@ const Text = styled.span`
 
 const GuestWrap = styled.div`
   padding-top: 15px;
+`;
+
+const DividerBar = styled.div`
+  margin-top: 17px;
+  margin-bottom: 17px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color:  #EBEBEB;
 `;
 export default Info;
