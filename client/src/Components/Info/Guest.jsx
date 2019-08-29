@@ -11,9 +11,12 @@ class Guest extends React.Component {
       adults: 1,
       children: 0,
       infants: 0,
-      adultsDim: false,
-      childrenDim: false,
-      infantsDim: false,
+      adultsDimL: true,
+      childrenDimL: true,
+      infantsDimL: true,
+      adultsDimR: false,
+      childrenDimR: false,
+      infantsDimR: false,
     };
     this.ref = React.createRef();
     this.refButton = React.createRef();
@@ -44,61 +47,100 @@ class Guest extends React.Component {
   }
 
   decrement(type) {
-    const {
-      adults, children, infants, numGuests, adultsDim, childrenDim, infantsDim,
+    let {
+      adults, children, infants, numGuests, adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
     } = this.state;
     if (type === 'a') {
       if (adults > 1) {
-        this.setState({ adults: adults - 1, numGuests: numGuests - 1 });
-      } else {
-        this.setState({ adultsDim: true });
+        adults -= 1;
+        numGuests -= 1;
+        adultsDimR = false;
+        childrenDimR = false;
+        if (adults === 1) {
+          adultsDimL = true;
+        }
+        this.setState({
+          adults, numGuests, adultsDimL, adultsDimR, childrenDimR,
+        });
       }
     } else if (type === 'c') {
-      if (children >= 1) {
-        this.setState({ children: children - 1, numGuests: numGuests - 1 });
-      } else {
-        this.setState({ childrenDim: true });
+      if (children > 0) {
+        children -= 1;
+        numGuests -= 1;
+        adultsDimR = false;
+        childrenDimR = false;
+        if (children === 0) {
+          childrenDimL = true;
+        }
+        this.setState({
+          children, numGuests, childrenDimL, childrenDimR, adultsDimR,
+        });
       }
-    } else if (infants >= 1) {
-      this.setState({ infants: infants - 1 });
-    } else {
-      this.setState({ infantsDim: true });
+    } else if (infants > 0) {
+      infants -= 1;
+      infantsDimL = false;
+      if (infants === 0) {
+        infantsDimL = true;
+      }
+      this.setState({
+        infants, infantsDimL,
+      });
     }
   }
 
   increment(type) {
-    const {
-      adults, children, infants, numGuests, maxGuests, adultsDim, childrenDim, infantsDim,
+    let {
+      adults, children, infants, numGuests, adultsDimL, childrenDimL, adultsDimR, childrenDimR, infantsDimL,
     } = this.state;
+    const { maxGuests } = this.state;
     if (type === 'a') {
       if (numGuests < maxGuests) {
-        this.setState({ adults: adults + 1, numGuests: numGuests + 1 });
-      } else {
-        this.setState({ adultsDim: true });
+        adults += 1;
+        numGuests += 1;
+        adultsDimL = false;
+        if (numGuests === maxGuests) {
+          adultsDimR = true;
+          childrenDimR = true;
+        }
+        this.setState({
+          adults, numGuests, adultsDimL, adultsDimR, childrenDimR,
+        });
       }
     } else if (type === 'c') {
       if (numGuests < maxGuests) {
-        this.setState({ children: children + 1, numGuests: numGuests + 1 });
-      } else {
-        this.setState({ childrenDim: true });
+        children += 1;
+        numGuests += 1;
+        childrenDimL = false;
+        if (numGuests === maxGuests) {
+          adultsDimR = true;
+          childrenDimR = true;
+        }
+        this.setState({
+          children, numGuests, childrenDimL, childrenDimR, adultsDimR,
+        });
       }
-    } else if (numGuests <= maxGuests) {
-      this.setState({ infants: infants + 1 });
     } else {
-      this.setState({ infantsDim: true });
+      infants += 1;
+      infantsDimL = false;
+      this.setState({
+        infants, infantsDimL,
+      });
     }
   }
 
   render() {
     const {
-      numGuests, showDropDown, adults, children, infants,
+      numGuests, showDropDown, adults, children, infants, adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
     } = this.state;
     return (
       <Container>
         <Guests onClick={this.showHandler} ref={this.refButton}>
-          {numGuests}
-          {' '}
-          {(numGuests - 1) ? 'guests' : 'guest'}
+          <TextDiv showDropDown={showDropDown}>
+            {numGuests}
+            {' '}
+            {(numGuests - 1) ? 'guests' : 'guest'}
+            {infants ? `, ${infants} infant${(infants - 1) ? 's' : ''}` : ''}
+          </TextDiv>
           <DownArrow>
             {showDropDown ? <path d="m1.71 13.71a1 1 0 1 1 -1.42-1.42l8-8a1 1 0 0 1 1.41 0l8 8a1 1 0 1 1 -1.41 1.42l-7.29-7.29z" fillRule="evenodd" />
               : <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd" /> }
@@ -110,25 +152,25 @@ class Guest extends React.Component {
               <DropDown>
                 <Text>Adult</Text>
                 <ButtonContainer>
-                  <ButtonLeft onClick={() => this.decrement('a')}>-</ButtonLeft>
+                  <ButtonLeft dim={adultsDimL} onClick={() => this.decrement('a')}>-</ButtonLeft>
                   <Text>{adults}</Text>
-                  <ButtonRight onClick={() => this.increment('a')}>+</ButtonRight>
+                  <ButtonRight dim={adultsDimR} onClick={() => this.increment('a')}>+</ButtonRight>
                 </ButtonContainer>
               </DropDown>
               <DropDown>
                 <Text>Children</Text>
                 <TextDescribe>Ages 2-12</TextDescribe>
                 <ButtonContainer>
-                  <ButtonLeft onClick={() => this.decrement('c')}>-</ButtonLeft>
+                  <ButtonLeft dim={childrenDimL} onClick={() => this.decrement('c')}>-</ButtonLeft>
                   <Text>{children}</Text>
-                  <ButtonRight onClick={() => this.increment('c')}>+</ButtonRight>
+                  <ButtonRight dim={childrenDimR} onClick={() => this.increment('c')}>+</ButtonRight>
                 </ButtonContainer>
               </DropDown>
               <DropDown>
                 <Text>Infants</Text>
                 <TextDescribe>Under 2</TextDescribe>
                 <ButtonContainer>
-                  <ButtonLeft onClick={() => this.decrement('i')}>-</ButtonLeft>
+                  <ButtonLeft dim={infantsDimL} onClick={() => this.decrement('i')}>-</ButtonLeft>
                   <Text>{infants}</Text>
                   <ButtonRight onClick={() => this.increment('i')}><Test>+</Test></ButtonRight>
                 </ButtonContainer>
@@ -158,7 +200,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-export const ButtonLeft = styled.div`
+export const ButtonLeft = styled.span`
   display: flex;
   justify-content: center;
   align-items:center;
@@ -168,22 +210,22 @@ export const ButtonLeft = styled.div`
   border-style: solid;
   border-width: 1px;
   border-radius: 50%;
-  border-color: rgb(0, 132, 137);
-  color: rgb(0, 132, 137);
+  border-color: ${(props) => (props.dim ? 'rgba(0, 132, 137, 0.3)' : 'rgb(0, 132, 137)')};
+  color: ${(props) => (props.dim ? 'rgba(0, 132, 137, 0.3)' : 'rgb(0, 132, 137)')};
   margin-right: 20px;
 `;
-export const ButtonRight = styled.div`
-display: flex;
-justify-content: center;
-align-items:center;
+export const ButtonRight = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items:center;
   cursor: pointer;
   height: 30px;
   width: 30px;
   border-style: solid;
   border-width: 1px;
   border-radius: 50%;
-  border-color: rgb(0, 132, 137);
-  color: rgb(0, 132, 137);
+  border-color: ${(props) => (props.dim ? 'rgba(0, 132, 137, 0.3)' : 'rgb(0, 132, 137)')};
+  color: ${(props) => (props.dim ? 'rgba(0, 132, 137, 0.3)' : 'rgb(0, 132, 137)')};
   margin-left: 20px;
 
 `;
@@ -255,7 +297,12 @@ export const Guests = styled.div`
   border-color: rgb(235, 235, 235);
   border-radius: 2px;
 `;
-
+const TextDiv = styled.span`
+  padding: 5px 6px;
+  background: ${(props) => (props.showDropDown ? 'rgb(153, 237, 230)' : 'initial')};
+  color: ${(props) => (props.showDropDown ? 'rgb(0,122,135)' : 'initial')};
+  border-radius: 3px;
+`;
 export const Container = styled.div`
   background-color: rgb(255, 255, 255);
   width: 100%;
