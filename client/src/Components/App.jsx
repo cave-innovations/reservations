@@ -53,7 +53,7 @@ class App extends React.Component {
     return (
       <div>
         <Info listing={listing} dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
-        <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
+        {/* <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} /> */}
       </div>
     );
   }

@@ -14,7 +14,7 @@ const db = Promise.promisifyAll(connection, { multiArgs: true });
 
 // Using only months August, September, and October
 // number of days in the month
-const numDays = [31, 30, 31];
+const numDays = [31, 30, 31, 30, 31];
 
 db.connectAsync()
   .then(() => db.queryAsync(`DROP DATABASE IF EXISTS ${database}`))
@@ -34,7 +34,7 @@ db.connectAsync()
       db.queryAsync(query)
         .then(() => {
           // populate dates table for 3 months
-          for (let j = 0; j < 3; j += 1) {
+          for (let j = 0; j < 5; j += 1) {
             for (let k = 0; k < numDays[j]; k += 1) {
               // randomize availability
               const blackedOut = Math.floor(Math.random() * 2);

@@ -44,7 +44,7 @@ const Div = styled.div`
 const Span = styled.span`
 display: inline-block;
 `;
-const Price = styled.span`
+export const Price = styled.span`
   display: inline-block;
   font-size: 22px
   overflow-wrap: break-word;
@@ -65,12 +65,12 @@ const PerNight = styled.span`
   color: rgb(72, 72, 72);
 `;
 
-const Reviews = styled(PerNight)`
+export const Reviews = styled(PerNight)`
   position: relative;
   margin-left: 55px;
 `;
 
-const Stars = styled.div`
+export const Stars = styled.div`
   unicode-bidi: bidi-override;
   font-size: 10px;
   color: #c5c5c5;

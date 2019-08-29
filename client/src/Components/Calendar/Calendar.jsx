@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Date from './Date';
 import ButtonsAndHeaders from './ButtonsAndHeaders';
 
-const numDaysArr = [31, 30, 31];
-const startDayArr = [5, 0, 3];
+const numDaysArr = [31, 30, 31, 30, 31];
+const startDayArr = [5, 0, 3, 5, 0];
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -12,11 +12,28 @@ class Calendar extends React.Component {
     this.state = {
       calendarArray: [],
       monthID: props.monthID,
+      changeMonth: props.changeMonth.bind(this),
     };
+    this.calendar = React.createRef();
     this.setState = this.setState.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
+    window.addEventListener('click', this.handleClick, false);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.handleClick, false);
+  }
+
+  handleClick(e) {
+    if (this.calendar.current.contains(e.target) || this.props.domRef.current.contains(e.target)) {
+      // click is within target, do nothing
+      return;
+    }
+    const { toggleCalendar } = this.props;
+    toggleCalendar(false, null);
   }
 
   // create calendar
@@ -66,10 +83,10 @@ class Calendar extends React.Component {
 
   render() {
     this.createCalendar();
-    const { monthID, calendarArray } = this.state;
+    const { monthID, calendarArray, changeMonth } = this.state;
     return (
-      <CalendarWrapper>
-        <ButtonsAndHeaders monthID={monthID} changeMonth={this.props.changeMonth.bind(this)} />
+      <CalendarWrapper ref={this.calendar}>
+        <ButtonsAndHeaders monthID={monthID} changeMonth={changeMonth} />
         <Table>
           <tbody>
             {calendarArray}
@@ -80,13 +97,25 @@ class Calendar extends React.Component {
   }
 }
 const CalendarWrapper = styled.div`
-  height: 332px;
-  width:308px;
+  position: absolute;
+  top: 174px;
+  width: 332px;
+  height: 308px;
   text-align:center;
+  border: 1px solid #e4e4e4;
+  z-index: 1;
+  background: white;
+  overflow:hidden;
 `;
 
 const Table = styled.table`
   display: inline-block;
+
+  transition: transform 0.25s;
+
+  ${CalendarWrapper}:onclick & {
+    transform: translate(-100%); /* Standard syntax */
+  }
 `;
 
 const calendarIndex2ColRowIndex = (dateIndex) => {
