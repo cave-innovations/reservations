@@ -10,7 +10,11 @@ class TopHeader extends React.Component {
   }
 
   render() {
-    const { reviews, pricing, stars } = this.props;
+    const {
+      reviews, stars, numGuests,
+    } = this.props;
+    let { pricing } = this.props;
+    pricing += (numGuests - 1) * 40;
     return (
       <StyledHeader>
         <Div>

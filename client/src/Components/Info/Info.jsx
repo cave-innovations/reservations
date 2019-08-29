@@ -9,7 +9,9 @@ class Info extends React.Component {
     super(props);
     this.state = {
       changeMonth: props.changeMonth.bind(this),
+      numGuests: 1,
     };
+    this.setState = this.setState.bind(this);
   }
 
   render() {
@@ -17,6 +19,7 @@ class Info extends React.Component {
       dates, ready, monthID, changeMonth,
     } = this.props;
     const { listing } = this.props;
+    const { numGuests } = this.state;
     if (!listing.length) {
       return null;
     }
@@ -25,14 +28,14 @@ class Info extends React.Component {
     } = listing[0];
     return (
       <StyledInfo>
-        <TopHeader reviews={reviews} pricing={pricing} stars={stars} />
+        <TopHeader reviews={reviews} pricing={pricing} stars={stars} numGuests={numGuests} />
         <Text>Dates</Text>
         <CheckInOut dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} />
 
         <GuestWrap>
 
           <Text>Guests</Text>
-          <Guest maxGuests={maxGuests} />
+          <Guest maxGuests={maxGuests} setState={this.setState} />
         </GuestWrap>
       </StyledInfo>
     );

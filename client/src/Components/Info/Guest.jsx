@@ -16,7 +16,7 @@ class Guest extends React.Component {
       infantsDimL: true,
       adultsDimR: false,
       childrenDimR: false,
-      infantsDimR: false,
+      setState: props.setState,
     };
     this.ref = React.createRef();
     this.refButton = React.createRef();
@@ -48,7 +48,7 @@ class Guest extends React.Component {
 
   decrement(type) {
     let {
-      adults, children, infants, numGuests, adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
+      adults, children, infants, numGuests, adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR, setState,
     } = this.state;
     if (type === 'a') {
       if (adults > 1) {
@@ -59,6 +59,7 @@ class Guest extends React.Component {
         if (adults === 1) {
           adultsDimL = true;
         }
+        setState({ numGuests });
         this.setState({
           adults, numGuests, adultsDimL, adultsDimR, childrenDimR,
         });
@@ -72,6 +73,7 @@ class Guest extends React.Component {
         if (children === 0) {
           childrenDimL = true;
         }
+        setState({ numGuests });
         this.setState({
           children, numGuests, childrenDimL, childrenDimR, adultsDimR,
         });
@@ -90,7 +92,7 @@ class Guest extends React.Component {
 
   increment(type) {
     let {
-      adults, children, infants, numGuests, adultsDimL, childrenDimL, adultsDimR, childrenDimR, infantsDimL,
+      adults, children, infants, numGuests, adultsDimL, childrenDimL, adultsDimR, childrenDimR, infantsDimL, setState,
     } = this.state;
     const { maxGuests } = this.state;
     if (type === 'a') {
@@ -102,6 +104,7 @@ class Guest extends React.Component {
           adultsDimR = true;
           childrenDimR = true;
         }
+        setState({ numGuests });
         this.setState({
           adults, numGuests, adultsDimL, adultsDimR, childrenDimR,
         });
@@ -115,6 +118,7 @@ class Guest extends React.Component {
           adultsDimR = true;
           childrenDimR = true;
         }
+        setState({ numGuests });
         this.setState({
           children, numGuests, childrenDimL, childrenDimR, adultsDimR,
         });
