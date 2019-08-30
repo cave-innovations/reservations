@@ -55,7 +55,9 @@ class Calendar extends React.Component {
         startDate: date, startMonth: monthID, inOut: !inOut, endDate: null,
       });
     } else {
-      setState({ endDate: date, endMonth: monthID, showCalendar: false });
+      setState({
+        endDate: date, endMonth: monthID, showCalendar: false,
+      });
     }
     this.setState({ clearDates: true });
   }

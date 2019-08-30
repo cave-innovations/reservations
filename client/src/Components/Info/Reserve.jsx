@@ -22,7 +22,7 @@ const Button = styled.div`
   font: 11px;
   color: white;
   font-weight: 550;
-  margin-top: 25px;
+  margin-top: 15px;
 `;
 
 const SmallText = styled.span`

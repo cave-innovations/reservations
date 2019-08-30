@@ -18,6 +18,19 @@ class CheckInOutt extends React.Component {
     this.childRef = React.createRef();
     this.setState = this.setState.bind(this);
     this.toggleCalendar = this.toggleCalendar.bind(this);
+    this.passProps = this.passProps.bind(this);
+  }
+
+  // pass start and end date up to info
+  passProps(stateChanges) {
+    const { startDate, endDate } = stateChanges;
+    const { setState } = this.props;
+    if (startDate) { setState({ startDate }); }
+    if (endDate) { setState({ endDate }); }
+    if (!startDate && !endDate) {
+      setState({ startDate, endDate });
+    }
+    this.setState(stateChanges);
   }
 
   toggleCalendar(change, boo) {
@@ -36,14 +49,26 @@ class CheckInOutt extends React.Component {
     let enderDate;
     if (startDate && startMonth) {
       if (startMonth < 10) {
-        starterDate = `0${startMonth}/${startDate}/2019`;
+        if (starterDate < 10) {
+          starterDate = `0${startMonth}/0${startDate}/2019`;
+        } else {
+          starterDate = `0${startMonth}/${startDate}/2019`;
+        }
+      } else if (starterDate < 10) {
+        starterDate = `${startMonth}/0${startDate}/2019`;
       } else {
         starterDate = `${startMonth}/${startDate}/2019`;
       }
     }
     if (endDate && endMonth) {
-      if (startMonth < 10) {
-        enderDate = `0${endMonth}/${endDate}/2019`;
+      if (endMonth < 10) {
+        if (endDate < 10) {
+          enderDate = `0${endMonth}/0${endDate}/2019`;
+        } else {
+          enderDate = `0${endMonth}/${endDate}/2019`;
+        }
+      } else if (endDate < 10) {
+        enderDate = `${endMonth}/0${endDate}/2019`;
       } else {
         enderDate = `${endMonth}/${endDate}/2019`;
       }
@@ -96,7 +121,7 @@ class CheckInOutt extends React.Component {
                   </CalendarSvgIn>
                 )}
 
-              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} toggleCalendar={this.toggleCalendar} domRef={this.childRef} startDate={startDate} startMonth={startMonth} endDate={endDate} endMonth={endMonth} setState={this.setState} inOut={inOut} />
+              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} toggleCalendar={this.toggleCalendar} domRef={this.childRef} startDate={startDate} startMonth={startMonth} endDate={endDate} endMonth={endMonth} setState={this.passProps} inOut={inOut} />
             </div>
           )
 

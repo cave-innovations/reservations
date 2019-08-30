@@ -319,8 +319,10 @@ const TextDiv = styled.span`
   border-radius: 3px;
 `;
 export const Container = styled.div`
+  display: inline-block;
   background-color: rgb(255, 255, 255);
   width: 100%;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  bottom-padding: 10px;
 `;
 export default Guest;
