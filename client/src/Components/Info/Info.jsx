@@ -48,7 +48,7 @@ class Info extends React.Component {
           <Guest maxGuests={maxGuests} setState={this.setState} />
         </GuestWrap>
         {numReservedDays
-          ? <Fees pricing={pricing} numReservedDays={numReservedDays} /> : null}
+          ? <Fees pricing={pricing} numReservedDays={numReservedDays} numGuests={numGuests} /> : null}
         <Reserve />
 
 

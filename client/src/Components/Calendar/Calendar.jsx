@@ -46,13 +46,27 @@ class Calendar extends React.Component {
 
   handleDateClick(date) {
     const {
-      monthID, setState, inOut, endDate,
+      monthID, setState, inOut, endDate, startDate,
     } = this.props;
     // set startdate and change to check out state
     if (inOut) {
       // if end date exists, remove existing end date
+      if (startDate) {
+        setState({
+          startDate: date, startMonth: monthID, inOut: !inOut, endDate: null,
+        });
+      } else if (!endDate) {
+        setState({
+          startDate: date, startMonth: monthID, inOut: !inOut,
+        });
+      } else {
+        setState({
+          startDate: date, startMonth: monthID, inOut: !inOut, endDate, showCalendar: false,
+        });
+      }
+    } else if (!startDate) {
       setState({
-        startDate: date, startMonth: monthID, inOut: !inOut, endDate: null,
+        endDate: date, endMonth: monthID, inOut: !inOut,
       });
     } else {
       setState({
@@ -98,7 +112,7 @@ class Calendar extends React.Component {
       hoveredDate, nextMonthNumDatesReserve,
     } = this.state;
     let numDatesReserve = 4;
-    if (startMonth + 1 === monthID) {
+    if (startMonth + 1 === monthID && startMonth) {
       numDatesReserve = nextMonthNumDatesReserve;
     }
     if (!(ready)) {
@@ -134,7 +148,7 @@ class Calendar extends React.Component {
         row.push(<td key={calendarIndex + col} id={calendarIndex} className="blankBlocks" />);
       } else {
         // if reservation start date hasn't been picked, populate calendar normally
-        if (inOut) {
+        if (inOut && (!(endDate) || (endDate && startDate))) {
           available = dates[date - 1].available;
           handleDateClick = (available ? this.handleDateClick : handleDateClick);
           if (date === Number(startDate)) {
@@ -170,7 +184,7 @@ class Calendar extends React.Component {
             }
           }
           this.state.nextMonthNumDatesReserve = numDatesReserve;
-        } else if (startMonth + 1 === monthID) {
+        } else if (startMonth + 1 === monthID && startMonth) {
           if (numDatesReserve > 0) {
             if (date === 1) {
               hoverDate = this.hoverDate;
@@ -193,10 +207,36 @@ class Calendar extends React.Component {
               numDatesReserve = 0;
             }
           }
-        } else if (date !== 1) {
-          // if no start seleted yet but want to choose check out date
+        } else if (date !== 1 && !endDate) {
+          // if no start/end seleted yet but want to choose check out date
           available = dates[date - 2].available;
           handleDateClick = (available ? this.handleDateClick : handleDateClick);
+        } else {
+          if (date === Number(endDate)) {
+            start = true;
+          }
+          if (date < endDate && date > endDate - 5) {
+            if (numDatesReserve > 0) {
+              let pass = true;
+              for (let i = date; i < endDate; i += 1) {
+                pass = pass && dates[i - 1].available;
+              }
+              if (pass) {
+                hoverDate = this.hoverDate;
+                handleDateClick = this.handleDateClick;
+                available = true;
+                reservable = true;
+                numDatesReserve -= 1;
+                if (date >= hoveredDate && hoveredDate) {
+                  hovered = true;
+                }
+                if (date >= startDate && startDate) {
+                  reserved = true;
+                }
+              }
+            }
+          }
+          this.state.nextMonthNumDatesReserve = numDatesReserve;
         }
 
         row.push(<Date key={date + col} date={date} available={available} handleDateClick={handleDateClick} start={start} reservable={reservable} hovered={hovered} hoverDate={hoverDate} reserved={reserved} />);

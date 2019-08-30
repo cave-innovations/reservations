@@ -81,7 +81,7 @@ class CheckInOutt extends React.Component {
             <TableCell>
               <CheckInOut>
                 <Input type="text" placeholder="Check-in" onClick={() => this.toggleCalendar.bind(this)(true, true)} />
-                <DivIn showCalendar={showCalendar} inOut={inOut}>{starterDate || 'Check-in'}</DivIn>
+                <DivIn showCalendar={showCalendar} inOut={inOut}>{starterDate ? <text style={{ color: 'black' }}>{starterDate}</text> : 'Check-in'}</DivIn>
               </CheckInOut>
             </TableCell>
             <Arrow>
@@ -99,7 +99,7 @@ class CheckInOutt extends React.Component {
             <TableCell>
               <CheckInOut>
                 <Input type="text" placeholder="Check-in" onClick={() => this.toggleCalendar.bind(this)(true, false)} />
-                <DivOut showCalendar={showCalendar} inOut={inOut}>{enderDate || 'Check-out'}</DivOut>
+                <DivOut showCalendar={showCalendar} inOut={inOut}>{enderDate ? <text style={{ color: 'black' }}>{enderDate}</text> : 'Check-out'}</DivOut>
               </CheckInOut>
             </TableCell>
           </TableRow>
@@ -132,15 +132,15 @@ class CheckInOutt extends React.Component {
 }
 
 const CalendarSvgIn = styled.svg`
-  position: relative;
+  position: absolute;
   width: 20px;
   height: 10px;
-  left: 22px;
+  left: 55px;
   z-index: 2;
-  top: -5px;
+  top: 170px;
 `;
 const CalendarSvgOut = styled(CalendarSvgIn)`
-  left: 200px;
+  left: 230px;
 `;
 
 const Arrow = styled.div`

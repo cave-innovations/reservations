@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Fees = (props) => {
-  const { pricing, numReservedDays } = props;
+  const { pricing, numReservedDays, numGuests } = props;
 
   return (
     <FeeContainer>
       <Fee>
 $
-        {pricing}
+        {pricing * numGuests}
         {' '}
 x
         {' '}
@@ -17,7 +17,7 @@ x
 nights
         <Price>
 $
-          {pricing * numReservedDays}
+          {pricing * numGuests * numReservedDays}
         </Price>
       </Fee>
       <DividerBar />
@@ -51,7 +51,8 @@ $36
       <Fee style={{ fontWeight: '600' }}>
 Total
         <Price>
-$33
+$
+          {pricing * numGuests * numReservedDays + 25 + 33 + 36}
         </Price>
       </Fee>
       <DividerBar />
@@ -63,11 +64,11 @@ const FeeContainer = styled.div`
   display: inline-block;
   overflow-wrap: break-word;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 1.2857142857142858em;
-  color: rgb(72, 72, 72);
-  padding: 10px 0px;
+  color: #484848;
+  padding: 7px 0px;
   width: 100%;
 `;
 
@@ -85,8 +86,8 @@ const Price = styled.span`
 `;
 
 export const DividerBar = styled.div`
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 2px;
+  margin-bottom: 3px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color:  #EBEBEB;

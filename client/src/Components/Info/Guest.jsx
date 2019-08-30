@@ -257,7 +257,7 @@ export const DropDownContainer = styled.div`
   background: white;
   border-top-color: rgb(0, 132, 137);
   border-top-width: 2px;
-
+  z-index: 1;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px
 `;
 
@@ -306,11 +306,12 @@ export const Guests = styled.div`
   position: relative;
   width: 100%;
   padding: 8px;
-  padding-left: 14px;
+  padding-left: 10px;
   border-width: 1px;
   border-style: solid;
   border-color: rgb(235, 235, 235);
   border-radius: 2px;
+  margin-bottom: 10px;
 `;
 const TextDiv = styled.span`
   padding: 5px 6px;

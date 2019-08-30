@@ -24,7 +24,7 @@ class Date extends React.Component {
 
 const StyledDate = styled.td`
   &:hover {
-    background-color: ${(props) => (props.available && (!props.hovered) && !props.reserved ? 'rgb(228, 231, 231)' : '')};
+    background-color: ${(props) => (props.available && !props.hovered && !props.reserved && !props.start ? 'rgb(228, 231, 231)' : '')};
   }
 
   cursor: ${(props) => (props.available ? 'pointer' : '')};
