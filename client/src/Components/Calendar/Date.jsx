@@ -9,21 +9,13 @@ class Date extends React.Component {
     };
   }
 
-  onClick(e) {
-    const { available } = this.props;
-    const value = e.target.innerHTML;
-    if (available) {
-      console.log(value);
-    }
-  }
-
   render() {
     const {
-      available, date,
+      available, date, handleDateClick, hoverDate, start, hovered,
     } = this.props;
-
+    // console.log(date, available, hovered);
     return (
-      <StyledDate available={available} onClick={(e) => this.onClick.bind(this)(e)}>
+      <StyledDate start={start} hovered={hovered} available={available} onClick={(e) => handleDateClick(e.target.innerHTML)} onMouseOver={(e) => hoverDate(e.target.innerHTML)} onMouseOut={hoverDate}>
         {date}
       </StyledDate>
     );
@@ -32,11 +24,10 @@ class Date extends React.Component {
 
 const StyledDate = styled.td`
   &:hover {
-    background-color: ${(props) => (props.available ? 'rgb(228, 231, 231)' : '')};
+    background-color: ${(props) => (props.available && (!props.hovered) ? 'rgb(228, 231, 231)' : '')};
   }
 
   cursor: ${(props) => (props.available ? 'pointer' : '')};
-
   border: 1px solid rgb(228, 231, 231);
   border-collapse: collapse;
   width: 38px;
@@ -51,7 +42,12 @@ const StyledDate = styled.td`
   line-height: 12px;
   font-size: 14px;
   color: ${(props) => (props.available ? 'rgb(72, 72, 72)' : 'rgb(228, 231, 231)')};
-  text-decoration: ${(props) => (props.available ? 'default' : 'line-through')};
+  color: ${(props) => (props.start || props.hovered ? 'white' : '')};
+  background-color: ${(props) => (props.start ? 'rgb(0, 166, 153)' : '')};}
+  border-color: ${(props) => (props.start ? 'rgb(0, 166, 153)' : '')};}
+  border-color: ${(props) => (props.hovered ? 'rgb(128, 232, 224)' : '')};
+  background-color: ${(props) => (props.hovered ? 'rgb(178, 241, 236)' : '')};
+  text-decoration: ${(props) => (props.available || props.start ? 'default' : 'line-through')};
 `;
 
 export default Date;

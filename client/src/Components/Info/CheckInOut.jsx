@@ -6,9 +6,13 @@ class CheckInOutt extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCalendar: false,
+      showCalendar: true,
       inOut: false,
       changeMonth: props.changeMonth.bind(this),
+      startDate: null,
+      startMonth: null,
+      endDate: null,
+      endMonth: null,
     };
 
     this.childRef = React.createRef();
@@ -25,8 +29,22 @@ class CheckInOutt extends React.Component {
       dates, ready, monthID,
     } = this.props;
     const {
-      inOut, showCalendar, changeMonth,
+      inOut, showCalendar, changeMonth, startDate, startMonth, endDate, endMonth,
     } = this.state;
+
+    let starterDate;
+    let enderDate;
+    if (startDate && startMonth) {
+      if (startMonth < 10) {
+        starterDate = `0${startMonth}/${startDate}/2019`;
+      } else {
+        starterDate = `${startMonth}/${startDate}/2019`;
+      }
+    }
+    if (endDate && endMonth) {
+      enderDate = `${endMonth}/${endDate}/2019`;
+    }
+
     return (
       <div>
         <CheckInOutContainer ref={this.childRef}>
@@ -34,7 +52,7 @@ class CheckInOutt extends React.Component {
             <TableCell>
               <CheckInOut>
                 <Input type="text" placeholder="Check-in" onClick={() => this.toggleCalendar.bind(this)(true, true)} />
-                <DivIn showCalendar={showCalendar} inOut={inOut}>Check-in</DivIn>
+                <DivIn showCalendar={showCalendar} inOut={inOut}>{starterDate || 'Check-in'}</DivIn>
               </CheckInOut>
             </TableCell>
             <Arrow>
@@ -74,7 +92,7 @@ class CheckInOutt extends React.Component {
                   </CalendarSvgIn>
                 )}
 
-              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} toggleCalendar={this.toggleCalendar} domRef={this.childRef} />
+              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} toggleCalendar={this.toggleCalendar} domRef={this.childRef} startDate={startDate} startMonth={startMonth} endDate={endDate} endMonth={endMonth} setState={this.setState} />
             </div>
           )
 
