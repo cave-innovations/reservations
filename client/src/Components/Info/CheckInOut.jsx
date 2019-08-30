@@ -6,7 +6,7 @@ class CheckInOutt extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCalendar: true,
+      showCalendar: false,
       inOut: false,
       changeMonth: props.changeMonth.bind(this),
       startDate: null,
@@ -42,7 +42,11 @@ class CheckInOutt extends React.Component {
       }
     }
     if (endDate && endMonth) {
-      enderDate = `${endMonth}/${endDate}/2019`;
+      if (startMonth < 10) {
+        enderDate = `0${endMonth}/${endDate}/2019`;
+      } else {
+        enderDate = `${endMonth}/${endDate}/2019`;
+      }
     }
 
     return (
@@ -70,7 +74,7 @@ class CheckInOutt extends React.Component {
             <TableCell>
               <CheckInOut>
                 <Input type="text" placeholder="Check-in" onClick={() => this.toggleCalendar.bind(this)(true, false)} />
-                <DivOut showCalendar={showCalendar} inOut={inOut}>Check-out</DivOut>
+                <DivOut showCalendar={showCalendar} inOut={inOut}>{enderDate || 'Check-out'}</DivOut>
               </CheckInOut>
             </TableCell>
           </TableRow>
@@ -92,7 +96,7 @@ class CheckInOutt extends React.Component {
                   </CalendarSvgIn>
                 )}
 
-              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} toggleCalendar={this.toggleCalendar} domRef={this.childRef} startDate={startDate} startMonth={startMonth} endDate={endDate} endMonth={endMonth} setState={this.setState} />
+              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} toggleCalendar={this.toggleCalendar} domRef={this.childRef} startDate={startDate} startMonth={startMonth} endDate={endDate} endMonth={endMonth} setState={this.setState} inOut={inOut} />
             </div>
           )
 
