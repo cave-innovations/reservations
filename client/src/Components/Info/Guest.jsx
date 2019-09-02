@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 class Guest extends React.Component {
   constructor(props) {
@@ -48,8 +49,10 @@ class Guest extends React.Component {
 
   decrement(type) {
     let {
-      adults, children, infants, numGuests, adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR, setState,
+      adults, children, infants, numGuests,
+      adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
     } = this.state;
+    const { setState } = this.state;
     if (type === 'a') {
       if (adults > 1) {
         adults -= 1;
@@ -92,8 +95,10 @@ class Guest extends React.Component {
 
   increment(type) {
     let {
-      adults, children, infants, numGuests, adultsDimL, childrenDimL, adultsDimR, childrenDimR, infantsDimL, setState,
+      adults, children, infants, numGuests, adultsDimL,
+      childrenDimL, adultsDimR, childrenDimR, infantsDimL,
     } = this.state;
+    const { setState } = this.state;
     const { maxGuests } = this.state;
     if (type === 'a') {
       if (numGuests < maxGuests) {
@@ -134,7 +139,8 @@ class Guest extends React.Component {
 
   render() {
     const {
-      numGuests, showDropDown, adults, children, infants, adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
+      numGuests, showDropDown, adults, children, infants,
+      adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
     } = this.state;
     return (
       <Container>
@@ -181,7 +187,9 @@ class Guest extends React.Component {
               </DropDown>
 
               <DropDown>
-                <TextDescribe>2 guests maximum. Infants don’t count toward the number of guests.</TextDescribe>
+                <TextDescribe>
+                  2 guests maximum. Infants don’t count toward the number of guests.
+                </TextDescribe>
               </DropDown>
               <Close>Close</Close>
             </DropDownContainer>
@@ -190,6 +198,16 @@ class Guest extends React.Component {
     );
   }
 }
+Guest.propTypes = {
+  maxGuests: PropTypes.number,
+  setState: PropTypes.func,
+};
+
+Guest.defaultProps = {
+  maxGuests: null,
+  setState: null,
+};
+
 const Test = styled.div`
   display: flex;
   justify-content: center;

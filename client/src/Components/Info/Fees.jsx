@@ -60,7 +60,7 @@ $
   );
 };
 
-const FeeContainer = styled.div`
+export const FeeContainer = styled.div`
   display: inline-block;
   overflow-wrap: break-word;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;

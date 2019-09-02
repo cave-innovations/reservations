@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Reserve = () => (
   <div>
     <Button>Reserve</Button>
-    <SmallText>You won't be charged yet</SmallText>
+    <SmallText>You won&#39;t be charged yet</SmallText>
   </div>
 );
 

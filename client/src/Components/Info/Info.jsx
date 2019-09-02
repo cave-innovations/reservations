@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import TopHeader from './TopHeader';
 import CheckInOut from './CheckInOut';
 import Guest from './Guest';
@@ -10,7 +11,6 @@ class Info extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      changeMonth: props.changeMonth.bind(this),
       numGuests: 1,
       startDate: null,
       endDate: null,
@@ -20,19 +20,19 @@ class Info extends React.Component {
 
   render() {
     const {
-      dates, ready, monthID, changeMonth,
+      dates, ready, monthID, changeMonth, listing,
     } = this.props;
-    const { listing } = this.props;
     const { numGuests, startDate, endDate } = this.state;
     let numReservedDays;
     if (endDate && startDate) {
       numReservedDays = endDate - startDate;
     }
+    this.state.numReservedDays = numReservedDays;
     if (!listing.length) {
       return null;
     }
     const {
-      reviews, pricing, stars, views, maxGuests,
+      reviews, pricing, stars, maxGuests,
     } = listing[0];
     return (
       <StyledInfo>
@@ -41,14 +41,26 @@ class Info extends React.Component {
         <DividerBar />
 
         <Text>Dates</Text>
-        <CheckInOut dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} setState={this.setState} />
+        <CheckInOut
+          dates={dates}
+          ready={ready}
+          monthID={monthID}
+          changeMonth={changeMonth}
+          setState={this.setState}
+        />
 
         <GuestWrap>
           <Text>Guests</Text>
           <Guest maxGuests={maxGuests} setState={this.setState} />
         </GuestWrap>
         {numReservedDays
-          ? <Fees pricing={pricing} numReservedDays={numReservedDays} numGuests={numGuests} /> : null}
+          ? (
+            <Fees
+              pricing={pricing}
+              numReservedDays={numReservedDays}
+              numGuests={numGuests}
+            />
+          ) : null}
         <Reserve />
 
 
@@ -58,6 +70,18 @@ class Info extends React.Component {
     );
   }
 }
+
+Info.propTypes = {
+  ready: PropTypes.bool,
+  monthID: PropTypes.number,
+  changeMonth: PropTypes.func,
+};
+
+Info.defaultProps = {
+  ready: false,
+  monthID: null,
+  changeMonth: null,
+};
 
 export const StyledInfo = styled.div`
   width: 326px;
@@ -91,4 +115,5 @@ export const DividerBar = styled.div`
   border-bottom-style: solid;
   border-bottom-color:  #EBEBEB;
 `;
+
 export default Info;

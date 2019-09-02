@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Date from './Date';
 import ButtonsAndHeaders from './ButtonsAndHeaders';
 
-const numDaysArr = [31, 30, 31, 30, 31];
-const startDayArr = [5, 0, 3, 5, 0];
+const numDaysArr = [31, 28, 31, 30, 31, 30, 31, 30, 30, 31, 30, 31];
+const startDayArr = [3, 6, 6, 2, 4, 7, 2, 5, 0, 3, 5, 0];
 // number of days you can reserve
 
 class Calendar extends React.Component {
@@ -145,7 +145,7 @@ class Calendar extends React.Component {
       // make blank blocks until startDay
       if (startDay < startDayMax || date > numDays) {
         startDay += 1;
-        row.push(<td key={calendarIndex + col} id={calendarIndex} className="blankBlocks" />);
+        row.push(<BlankBlocks key={calendarIndex + col} id={calendarIndex} />);
       } else {
         // if reservation start date hasn't been picked, populate calendar normally
         if (inOut && (!(endDate) || (endDate && startDate))) {
@@ -294,6 +294,7 @@ const CalendarWrapper = styled.div`
 
 const Table = styled.table`
   display: inline-block;
+  border-collapse: collapse
 
   transition: transform 0.25s;
 
@@ -316,6 +317,10 @@ const Close = styled.div`
   font-size: 14px;
   padding: 20px 25px;
   z-index:0;
+`;
+
+const BlankBlocks = styled.td`
+  border: 0px solid rgb(228, 231, 231);
 `;
 
 const calendarIndex2ColRowIndex = (dateIndex) => {

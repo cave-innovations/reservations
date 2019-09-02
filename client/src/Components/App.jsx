@@ -1,7 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import Calendar from './Calendar/Calendar';
+import styled from 'styled-components';
 import Info from './Info/Info';
+// import top from '../../../img/Top.png';
+
+const today = new Date();
+const mm = today.getMonth() + 1; // January is 0!
 
 class App extends React.Component {
   constructor(props) {
@@ -9,16 +13,11 @@ class App extends React.Component {
     this.state = {
       listing: {},
       dates: {},
-      monthID: 1,
+      monthID: mm,
       ready: false,
-      stars: null,
-      reviews: null,
-      views: null,
-      name: '',
-      maxGuests: '',
-      pricing: null,
     };
     this.setState = this.setState.bind(this);
+    this.changeMonth = this.changeMonth.bind(this);
   }
 
   componentDidMount(direction = 0) {
@@ -52,11 +51,25 @@ class App extends React.Component {
     } = this.state;
     return (
       <div>
-        <Info listing={listing} dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} />
-        {/* <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={this.changeMonth.bind(this)} /> */}
+        {/* <TopImage src="http://localhost:3000/Top.png" />
+        <LeftImage src="http://localhost:3000/Left.png" /> */}
+        <Info
+          listing={listing}
+          dates={dates}
+          ready={ready}
+          monthID={monthID}
+          changeMonth={this.changeMonth}
+        />
       </div>
     );
   }
 }
+
+const TopImage = styled.img`
+  width: 100%;
+`;
+const LeftImage = styled.img`
+  width: 50%;
+`;
 
 export default App;

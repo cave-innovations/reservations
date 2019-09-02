@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Calendar from '../Calendar/Calendar';
 
 class CheckInOutt extends React.Component {
@@ -121,7 +122,20 @@ class CheckInOutt extends React.Component {
                   </CalendarSvgIn>
                 )}
 
-              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} toggleCalendar={this.toggleCalendar} domRef={this.childRef} startDate={startDate} startMonth={startMonth} endDate={endDate} endMonth={endMonth} setState={this.passProps} inOut={inOut} />
+              <Calendar
+                dates={dates}
+                ready={ready}
+                monthID={monthID}
+                changeMonth={changeMonth}
+                toggleCalendar={this.toggleCalendar}
+                domRef={this.childRef}
+                startDate={startDate}
+                startMonth={startMonth}
+                endDate={endDate}
+                endMonth={endMonth}
+                setState={this.passProps}
+                inOut={inOut}
+              />
             </div>
           )
 
@@ -130,6 +144,18 @@ class CheckInOutt extends React.Component {
     );
   }
 }
+
+CheckInOutt.propTypes = {
+  dates: PropTypes.number,
+  ready: PropTypes.bool,
+  monthID: PropTypes.number,
+};
+
+CheckInOutt.defaultProps = {
+  dates: null,
+  ready: false,
+  monthID: null,
+};
 
 const CalendarSvgIn = styled.svg`
   position: absolute;
