@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 class Guest extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Guest extends React.Component {
       infantsDimL: true,
       adultsDimR: false,
       childrenDimR: false,
-      infantsDimR: false,
+      setState: props.setState,
     };
     this.ref = React.createRef();
     this.refButton = React.createRef();
@@ -48,8 +49,10 @@ class Guest extends React.Component {
 
   decrement(type) {
     let {
-      adults, children, infants, numGuests, adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
+      adults, children, infants, numGuests,
+      adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
     } = this.state;
+    const { setState } = this.state;
     if (type === 'a') {
       if (adults > 1) {
         adults -= 1;
@@ -59,6 +62,7 @@ class Guest extends React.Component {
         if (adults === 1) {
           adultsDimL = true;
         }
+        setState({ numGuests });
         this.setState({
           adults, numGuests, adultsDimL, adultsDimR, childrenDimR,
         });
@@ -72,6 +76,7 @@ class Guest extends React.Component {
         if (children === 0) {
           childrenDimL = true;
         }
+        setState({ numGuests });
         this.setState({
           children, numGuests, childrenDimL, childrenDimR, adultsDimR,
         });
@@ -90,8 +95,10 @@ class Guest extends React.Component {
 
   increment(type) {
     let {
-      adults, children, infants, numGuests, adultsDimL, childrenDimL, adultsDimR, childrenDimR, infantsDimL,
+      adults, children, infants, numGuests, adultsDimL,
+      childrenDimL, adultsDimR, childrenDimR, infantsDimL,
     } = this.state;
+    const { setState } = this.state;
     const { maxGuests } = this.state;
     if (type === 'a') {
       if (numGuests < maxGuests) {
@@ -102,6 +109,7 @@ class Guest extends React.Component {
           adultsDimR = true;
           childrenDimR = true;
         }
+        setState({ numGuests });
         this.setState({
           adults, numGuests, adultsDimL, adultsDimR, childrenDimR,
         });
@@ -115,6 +123,7 @@ class Guest extends React.Component {
           adultsDimR = true;
           childrenDimR = true;
         }
+        setState({ numGuests });
         this.setState({
           children, numGuests, childrenDimL, childrenDimR, adultsDimR,
         });
@@ -130,7 +139,8 @@ class Guest extends React.Component {
 
   render() {
     const {
-      numGuests, showDropDown, adults, children, infants, adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
+      numGuests, showDropDown, adults, children, infants,
+      adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
     } = this.state;
     return (
       <Container>
@@ -177,7 +187,9 @@ class Guest extends React.Component {
               </DropDown>
 
               <DropDown>
-                <TextDescribe>2 guests maximum. Infants don’t count toward the number of guests.</TextDescribe>
+                <TextDescribe>
+                  2 guests maximum. Infants don’t count toward the number of guests.
+                </TextDescribe>
               </DropDown>
               <Close>Close</Close>
             </DropDownContainer>
@@ -186,6 +198,16 @@ class Guest extends React.Component {
     );
   }
 }
+Guest.propTypes = {
+  maxGuests: PropTypes.number,
+  setState: PropTypes.func,
+};
+
+Guest.defaultProps = {
+  maxGuests: null,
+  setState: null,
+};
+
 const Test = styled.div`
   display: flex;
   justify-content: center;
@@ -196,7 +218,7 @@ const Test = styled.div`
 
 const ButtonContainer = styled.div`
   position: absolute;
-  left: 230px;
+  left: 195px;
   display: flex;
   justify-content: flex-end;
 `;
@@ -231,19 +253,30 @@ export const ButtonRight = styled.span`
 `;
 const Close = styled.div`
   position: relative;
+  pointer: cursor;
   display: flex;
   justify-content: flex-end;
   &:hover{
     text-decoration: underline;
   }
+  color: rgb(0, 132, 137);
+  font-weight: 500;
 `;
 export const DropDownContainer = styled.div`
+  position: absolute;
+  box-sizing: border-box;
+  width: 326px;
   padding: 15px;
   padding-top: 0px;
   border-width: 1px;
   border-style: solid;
   border-color: rgb(235, 235, 235);
   border-radius: 2px;
+  background: white;
+  border-top-color: rgb(0, 132, 137);
+  border-top-width: 2px;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px
 `;
 
 const Text = styled.div`
@@ -291,11 +324,12 @@ export const Guests = styled.div`
   position: relative;
   width: 100%;
   padding: 8px;
-  padding-left: 14px;
+  padding-left: 10px;
   border-width: 1px;
   border-style: solid;
   border-color: rgb(235, 235, 235);
   border-radius: 2px;
+  margin-bottom: 10px;
 `;
 const TextDiv = styled.span`
   padding: 5px 6px;
@@ -304,8 +338,10 @@ const TextDiv = styled.span`
   border-radius: 3px;
 `;
 export const Container = styled.div`
+  display: inline-block;
   background-color: rgb(255, 255, 255);
   width: 100%;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  bottom-padding: 10px;
 `;
 export default Guest;

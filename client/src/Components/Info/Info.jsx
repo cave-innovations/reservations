@@ -1,45 +1,89 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import TopHeader from './TopHeader';
 import CheckInOut from './CheckInOut';
 import Guest from './Guest';
+import Reserve from './Reserve';
+import Fees from './Fees';
 
 class Info extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      changeMonth: props.changeMonth.bind(this),
+      numGuests: 1,
+      startDate: null,
+      endDate: null,
     };
+    this.setState = this.setState.bind(this);
   }
 
   render() {
     const {
-      dates, ready, monthID, changeMonth,
+      dates, ready, monthID, changeMonth, listing,
     } = this.props;
-    const { listing } = this.props;
+    const { numGuests, startDate, endDate } = this.state;
+    let numReservedDays;
+    if (endDate && startDate) {
+      numReservedDays = endDate - startDate;
+    }
+    this.state.numReservedDays = numReservedDays;
     if (!listing.length) {
       return null;
     }
     const {
-      reviews, pricing, stars, views, maxGuests,
+      reviews, pricing, stars, maxGuests,
     } = listing[0];
     return (
       <StyledInfo>
-        <TopHeader reviews={reviews} pricing={pricing} stars={stars} />
+        <TopHeader reviews={reviews} pricing={pricing} stars={stars} numGuests={numGuests} />
+
+        <DividerBar />
+
         <Text>Dates</Text>
-        <CheckInOut dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} />
+        <CheckInOut
+          dates={dates}
+          ready={ready}
+          monthID={monthID}
+          changeMonth={changeMonth}
+          setState={this.setState}
+        />
 
         <GuestWrap>
-
           <Text>Guests</Text>
-          <Guest maxGuests={maxGuests} />
+          <Guest maxGuests={maxGuests} setState={this.setState} />
         </GuestWrap>
+        {numReservedDays
+          ? (
+            <Fees
+              pricing={pricing}
+              numReservedDays={numReservedDays}
+              numGuests={numGuests}
+            />
+          ) : null}
+        <Reserve />
+
+
+        <DividerBar />
+
       </StyledInfo>
     );
   }
 }
+
+Info.propTypes = {
+  ready: PropTypes.bool,
+  monthID: PropTypes.number,
+  changeMonth: PropTypes.func,
+};
+
+Info.defaultProps = {
+  ready: false,
+  monthID: null,
+  changeMonth: null,
+};
+
 export const StyledInfo = styled.div`
-  height: 422px;
   width: 326px;
   padding-left: 24px;
   padding-right: 24px;
@@ -63,4 +107,13 @@ const Text = styled.span`
 const GuestWrap = styled.div`
   padding-top: 15px;
 `;
+
+export const DividerBar = styled.div`
+  margin-top: 17px;
+  margin-bottom: 17px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color:  #EBEBEB;
+`;
+
 export default Info;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Calendar from '../Calendar/Calendar';
 
 class CheckInOutt extends React.Component {
@@ -9,11 +10,28 @@ class CheckInOutt extends React.Component {
       showCalendar: false,
       inOut: false,
       changeMonth: props.changeMonth.bind(this),
+      startDate: null,
+      startMonth: null,
+      endDate: null,
+      endMonth: null,
     };
 
     this.childRef = React.createRef();
     this.setState = this.setState.bind(this);
     this.toggleCalendar = this.toggleCalendar.bind(this);
+    this.passProps = this.passProps.bind(this);
+  }
+
+  // pass start and end date up to info
+  passProps(stateChanges) {
+    const { startDate, endDate } = stateChanges;
+    const { setState } = this.props;
+    if (startDate) { setState({ startDate }); }
+    if (endDate) { setState({ endDate }); }
+    if (!startDate && !endDate) {
+      setState({ startDate, endDate });
+    }
+    this.setState(stateChanges);
   }
 
   toggleCalendar(change, boo) {
@@ -25,8 +43,38 @@ class CheckInOutt extends React.Component {
       dates, ready, monthID,
     } = this.props;
     const {
-      inOut, showCalendar, changeMonth,
+      inOut, showCalendar, changeMonth, startDate, startMonth, endDate, endMonth,
     } = this.state;
+
+    let starterDate;
+    let enderDate;
+    if (startDate && startMonth) {
+      if (startMonth < 10) {
+        if (starterDate < 10) {
+          starterDate = `0${startMonth}/0${startDate}/2019`;
+        } else {
+          starterDate = `0${startMonth}/${startDate}/2019`;
+        }
+      } else if (starterDate < 10) {
+        starterDate = `${startMonth}/0${startDate}/2019`;
+      } else {
+        starterDate = `${startMonth}/${startDate}/2019`;
+      }
+    }
+    if (endDate && endMonth) {
+      if (endMonth < 10) {
+        if (endDate < 10) {
+          enderDate = `0${endMonth}/0${endDate}/2019`;
+        } else {
+          enderDate = `0${endMonth}/${endDate}/2019`;
+        }
+      } else if (endDate < 10) {
+        enderDate = `${endMonth}/0${endDate}/2019`;
+      } else {
+        enderDate = `${endMonth}/${endDate}/2019`;
+      }
+    }
+
     return (
       <div>
         <CheckInOutContainer ref={this.childRef}>
@@ -34,7 +82,7 @@ class CheckInOutt extends React.Component {
             <TableCell>
               <CheckInOut>
                 <Input type="text" placeholder="Check-in" onClick={() => this.toggleCalendar.bind(this)(true, true)} />
-                <DivIn showCalendar={showCalendar} inOut={inOut}>Check-in</DivIn>
+                <DivIn showCalendar={showCalendar} inOut={inOut}>{starterDate ? <text style={{ color: 'black' }}>{starterDate}</text> : 'Check-in'}</DivIn>
               </CheckInOut>
             </TableCell>
             <Arrow>
@@ -52,7 +100,7 @@ class CheckInOutt extends React.Component {
             <TableCell>
               <CheckInOut>
                 <Input type="text" placeholder="Check-in" onClick={() => this.toggleCalendar.bind(this)(true, false)} />
-                <DivOut showCalendar={showCalendar} inOut={inOut}>Check-out</DivOut>
+                <DivOut showCalendar={showCalendar} inOut={inOut}>{enderDate ? <text style={{ color: 'black' }}>{enderDate}</text> : 'Check-out'}</DivOut>
               </CheckInOut>
             </TableCell>
           </TableRow>
@@ -74,7 +122,20 @@ class CheckInOutt extends React.Component {
                   </CalendarSvgIn>
                 )}
 
-              <Calendar dates={dates} ready={ready} monthID={monthID} changeMonth={changeMonth} toggleCalendar={this.toggleCalendar} domRef={this.childRef} />
+              <Calendar
+                dates={dates}
+                ready={ready}
+                monthID={monthID}
+                changeMonth={changeMonth}
+                toggleCalendar={this.toggleCalendar}
+                domRef={this.childRef}
+                startDate={startDate}
+                startMonth={startMonth}
+                endDate={endDate}
+                endMonth={endMonth}
+                setState={this.passProps}
+                inOut={inOut}
+              />
             </div>
           )
 
@@ -84,16 +145,28 @@ class CheckInOutt extends React.Component {
   }
 }
 
+CheckInOutt.propTypes = {
+  dates: PropTypes.number,
+  ready: PropTypes.bool,
+  monthID: PropTypes.number,
+};
+
+CheckInOutt.defaultProps = {
+  dates: null,
+  ready: false,
+  monthID: null,
+};
+
 const CalendarSvgIn = styled.svg`
-  position: relative;
+  position: absolute;
   width: 20px;
   height: 10px;
-  left: 22px;
+  left: 55px;
   z-index: 2;
-  top: -5px;
+  top: 170px;
 `;
 const CalendarSvgOut = styled(CalendarSvgIn)`
-  left: 200px;
+  left: 230px;
 `;
 
 const Arrow = styled.div`

@@ -16,6 +16,8 @@ describe('should render ButtonsAndHeaders component', () => {
   });
 
   it('should render the Month and Button components', () => {
-    expect(wrapper.find(Month).text()).toBe('August 2019');
+    wrapper.find(StyledButton).at(0).simulate('click');
+    wrapper.find(StyledButton).at(1).simulate('click');
+    expect(wrapper.find(Month).text()).toBe('January 2019');
   });
 });

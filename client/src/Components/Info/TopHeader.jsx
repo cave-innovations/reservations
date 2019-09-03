@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 class TopHeader extends React.Component {
   constructor(props) {
@@ -10,7 +11,11 @@ class TopHeader extends React.Component {
   }
 
   render() {
-    const { reviews, pricing, stars } = this.props;
+    const {
+      reviews, stars, numGuests,
+    } = this.props;
+    let { pricing } = this.props;
+    pricing *= numGuests;
     return (
       <StyledHeader>
         <Div>
@@ -29,17 +34,32 @@ class TopHeader extends React.Component {
           </Reviews>
         </div>
 
-        <DividerBar />
+        {/* <DividerBar /> */}
       </StyledHeader>
     );
   }
 }
+
+TopHeader.propTypes = {
+  pricing: PropTypes.number,
+  reviews: PropTypes.number,
+  numGuests: PropTypes.number,
+  stars: PropTypes.number,
+};
+
+TopHeader.defaultProps = {
+  pricing: null,
+  reviews: null,
+  numGuests: null,
+  stars: null,
+};
 
 const StyledHeader = styled.div`
 
 `;
 const Div = styled.div`
   height: 28px;
+  padding-bottom: 5px;
 `;
 const Span = styled.span`
 display: inline-block;
@@ -97,11 +117,4 @@ const EmptyStars = styled.div`
   display: block;
 `;
 
-const DividerBar = styled.div`
-  margin-top: 17px;
-  margin-bottom: 17px;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color:  #EBEBEB;
-`;
 export default TopHeader;
