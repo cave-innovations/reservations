@@ -3,11 +3,12 @@ const Promise = require('bluebird');
 const faker = require('faker');
 const createTables = require('./config');
 
-const database = 'reservation';
+const database = 'reservations';
 
 const connection = mysql.createConnection({
+  host: '172.17.0.2',
   user: 'root',
-  password: '',
+  password: 'password',
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -30,7 +31,7 @@ db.connectAsync()
       const stars = Math.floor(Math.random() * 5) + 1;
       const reviews = Math.floor(Math.random() * 250) + 1;
       const views = Math.floor(Math.random() * 500) + 1;
-      const query = `INSERT INTO listings (name, pricing, maxGuests, stars, reviews, views) VALUES ('${name}', ${pricing}, ${maxGuests}, ${stars}, ${reviews}, ${views})`;
+      const query = `INSERT INTO listings (name, pricing, maxGuests, stars, reviews, views) VALUES (${db.escape(name)}, ${pricing}, ${maxGuests}, ${stars}, ${reviews}, ${views})`;
       db.queryAsync(query)
         .then(() => {
           // populate dates table for 3 months

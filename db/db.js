@@ -2,9 +2,10 @@ const mysql = require('mysql');
 const Promise = require('bluebird');
 
 const connection = mysql.createConnection({
+  host: '172.17.0.2',
   user: 'root',
-  password: '',
-  database: 'reservation',
+  password: 'password',
+  database: 'reservations',
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });

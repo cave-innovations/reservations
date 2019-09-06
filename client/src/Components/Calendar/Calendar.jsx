@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import Date from './Date';
 import ButtonsAndHeaders from './ButtonsAndHeaders';
 
@@ -95,11 +95,11 @@ class Calendar extends React.Component {
   }
 
   handleClick(e) {
-    if (this.calendar.current.contains(e.target) || this.props.domRef.current.contains(e.target) || e.target.innerHTML === 'Clear dates') {
+    const { domRef, toggleCalendar } = this.props;
+    if (this.calendar.current.contains(e.target) || domRef.current.contains(e.target) || e.target.innerHTML === 'Clear dates') {
       // click is within target, do nothing
       return;
     }
-    const { toggleCalendar } = this.props;
     toggleCalendar(false, null);
   }
 
@@ -279,7 +279,7 @@ class Calendar extends React.Component {
 const CalendarWrapper = styled.div`
   position: absolute;
   border-radius: 3px;
-  top: 179px;
+  top: 171px;
   width: 332px;
   height: ${(props) => (props.clearDates ? '354px' : '308px')};
   text-align:center;

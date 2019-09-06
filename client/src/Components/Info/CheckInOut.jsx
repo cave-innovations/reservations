@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Calendar from '../Calendar/Calendar';
 
@@ -50,12 +50,12 @@ class CheckInOutt extends React.Component {
     let enderDate;
     if (startDate && startMonth) {
       if (startMonth < 10) {
-        if (starterDate < 10) {
+        if (startDate < 10) {
           starterDate = `0${startMonth}/0${startDate}/2019`;
         } else {
           starterDate = `0${startMonth}/${startDate}/2019`;
         }
-      } else if (starterDate < 10) {
+      } else if (startDate < 10) {
         starterDate = `${startMonth}/0${startDate}/2019`;
       } else {
         starterDate = `${startMonth}/${startDate}/2019`;
@@ -163,7 +163,7 @@ const CalendarSvgIn = styled.svg`
   height: 10px;
   left: 55px;
   z-index: 2;
-  top: 170px;
+  top: 162px;
 `;
 const CalendarSvgOut = styled(CalendarSvgIn)`
   left: 230px;

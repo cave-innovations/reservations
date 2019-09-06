@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 class Date extends React.Component {
@@ -14,8 +14,6 @@ class Date extends React.Component {
     const {
       available, date, handleDateClick, hoverDate, start, hovered, reserved,
     } = this.props;
-    console.log(start, 'false');
-    // console.log(date, available, hovered);
     return (
       <StyledDate
         start={start}
@@ -33,9 +31,9 @@ class Date extends React.Component {
 }
 
 Date.propTypes = {
-  available: PropTypes.number,
+  available: PropTypes.bool,
   date: PropTypes.number,
-  handleDateClick: PropTypes.number,
+  handleDateClick: PropTypes.func,
   hoverDate: PropTypes.func,
   start: PropTypes.bool,
   hovered: PropTypes.bool,
@@ -52,7 +50,7 @@ Date.defaultProps = {
   reserved: null,
 };
 
-const StyledDate = styled.td`
+export const StyledDate = styled.td`
   &:hover {
     background-color: ${(props) => (props.available && !props.hovered && !props.reserved && !props.start ? 'rgb(228, 231, 231)' : '')};
   }

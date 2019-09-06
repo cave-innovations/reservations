@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 class Guest extends React.Component {
@@ -15,6 +15,7 @@ class Guest extends React.Component {
       adultsDimL: true,
       childrenDimL: true,
       infantsDimL: true,
+      infantsDimR: false,
       adultsDimR: false,
       childrenDimR: false,
       setState: props.setState,
@@ -50,7 +51,7 @@ class Guest extends React.Component {
   decrement(type) {
     let {
       adults, children, infants, numGuests,
-      adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
+      adultsDimL, childrenDimL, infantsDimL, infantsDimR, adultsDimR, childrenDimR,
     } = this.state;
     const { setState } = this.state;
     if (type === 'a') {
@@ -84,11 +85,12 @@ class Guest extends React.Component {
     } else if (infants > 0) {
       infants -= 1;
       infantsDimL = false;
+      infantsDimR = false;
       if (infants === 0) {
         infantsDimL = true;
       }
       this.setState({
-        infants, infantsDimL,
+        infants, infantsDimL, infantsDimR,
       });
     }
   }
@@ -96,7 +98,7 @@ class Guest extends React.Component {
   increment(type) {
     let {
       adults, children, infants, numGuests, adultsDimL,
-      childrenDimL, adultsDimR, childrenDimR, infantsDimL,
+      childrenDimL, adultsDimR, childrenDimR, infantsDimL, infantsDimR,
     } = this.state;
     const { setState } = this.state;
     const { maxGuests } = this.state;
@@ -128,11 +130,15 @@ class Guest extends React.Component {
           children, numGuests, childrenDimL, childrenDimR, adultsDimR,
         });
       }
-    } else {
+    } else if (infants < 5) {
       infants += 1;
       infantsDimL = false;
+
+      if (infants === 5) {
+        infantsDimR = true;
+      }
       this.setState({
-        infants, infantsDimL,
+        infants, infantsDimL, infantsDimR,
       });
     }
   }
@@ -140,7 +146,7 @@ class Guest extends React.Component {
   render() {
     const {
       numGuests, showDropDown, adults, children, infants,
-      adultsDimL, childrenDimL, infantsDimL, adultsDimR, childrenDimR,
+      adultsDimL, childrenDimL, infantsDimL, infantsDimR, adultsDimR, childrenDimR,
     } = this.state;
     return (
       <Container>
@@ -182,7 +188,7 @@ class Guest extends React.Component {
                 <ButtonContainer>
                   <ButtonLeft dim={infantsDimL} onClick={() => this.decrement('i')}>-</ButtonLeft>
                   <Text>{infants}</Text>
-                  <ButtonRight onClick={() => this.increment('i')}><Test>+</Test></ButtonRight>
+                  <ButtonRight dim={infantsDimR} onClick={() => this.increment('i')}><Test>+</Test></ButtonRight>
                 </ButtonContainer>
               </DropDown>
 
@@ -276,7 +282,7 @@ export const DropDownContainer = styled.div`
   border-top-color: rgb(0, 132, 137);
   border-top-width: 2px;
   z-index: 1;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
 `;
 
 const Text = styled.div`
@@ -329,7 +335,6 @@ export const Guests = styled.div`
   border-style: solid;
   border-color: rgb(235, 235, 235);
   border-radius: 2px;
-  margin-bottom: 10px;
 `;
 const TextDiv = styled.span`
   padding: 5px 6px;
@@ -342,6 +347,6 @@ export const Container = styled.div`
   background-color: rgb(255, 255, 255);
   width: 100%;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  bottom-padding: 10px;
+  padding-bottom: 10px;
 `;
 export default Guest;

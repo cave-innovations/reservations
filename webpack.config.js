@@ -4,6 +4,7 @@ module.exports = {
 
   resolve: { extensions: ['.js', '.jsx'] },
   entry: path.join(__dirname, '/client/src/index.jsx'),
+  // entry: path.join(__dirname, '/client/src/Components/App.jsx'),
   module: {
     rules: [
       {
@@ -21,5 +22,8 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, '/public'),
+
+    libraryTarget: 'var',
+    library: 'Reservations',
   },
 };
