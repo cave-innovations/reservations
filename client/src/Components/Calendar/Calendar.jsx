@@ -116,7 +116,7 @@ class Calendar extends React.Component {
       numDatesReserve = nextMonthNumDatesReserve;
     }
     if (!(ready)) {
-      return;
+      return <div>loading...</div>;
     }
 
     const calendarArray = [];
@@ -279,7 +279,7 @@ class Calendar extends React.Component {
 const CalendarWrapper = styled.div`
   position: absolute;
   border-radius: 3px;
-  top: 171px;
+  top: 8px;
   width: 332px;
   height: ${(props) => (props.clearDates ? '354px' : '308px')};
   text-align:center;

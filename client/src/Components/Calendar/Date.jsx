@@ -31,7 +31,7 @@ class Date extends React.Component {
 }
 
 Date.propTypes = {
-  available: PropTypes.bool,
+  // available: PropTypes.bool,
   date: PropTypes.number,
   handleDateClick: PropTypes.func,
   hoverDate: PropTypes.func,
@@ -41,7 +41,7 @@ Date.propTypes = {
 };
 
 Date.defaultProps = {
-  available: null,
+  // available: null,
   date: null,
   handleDateClick: null,
   hoverDate: null,

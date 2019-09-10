@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
+const compression = require('compression');
 const db = require('../db/db');
 
 const app = express();
-const port = 3001;
+const port = 3003;
+app.use(compression());
 app.use(express.static('./public'));
 app.use('/app/:listings', express.static('./public'));
 app.use(bodyParser.urlencoded({ extended: false }));

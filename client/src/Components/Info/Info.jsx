@@ -29,7 +29,16 @@ class Info extends React.Component {
     }
     this.state.numReservedDays = numReservedDays;
     if (!listing.length) {
-      return null;
+      return (
+        <div>
+          <div>Loading...</div>
+          <div>Loading...</div>
+          <div>Loading...</div>
+          <div>Loading...</div>
+          <div>Loading...</div>
+          <div>Loading...</div>
+        </div>
+      );
     }
     const {
       reviews, pricing, stars, maxGuests,
@@ -73,13 +82,13 @@ class Info extends React.Component {
 
 Info.propTypes = {
   ready: PropTypes.bool,
-  monthID: PropTypes.number,
+  // monthID: PropTypes.number,
   changeMonth: PropTypes.func,
 };
 
 Info.defaultProps = {
   ready: false,
-  monthID: null,
+  // monthID: null,
   changeMonth: null,
 };
 

@@ -1,10 +1,19 @@
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
 
   resolve: { extensions: ['.js', '.jsx'] },
   entry: path.join(__dirname, '/client/src/index.jsx'),
   // entry: path.join(__dirname, '/client/src/Components/App.jsx'),
+  mode: 'production',
+  optimization: {
+    minimizer: [new TerserPlugin({
+      cache: true,
+      parallel: true,
+    })],
+  },
   module: {
     rules: [
       {
@@ -26,4 +35,10 @@ module.exports = {
     libraryTarget: 'var',
     library: 'Reservations',
   },
+  // plugins: [
+  //   new CompressionPlugin({
+  //     cache: true,
+  //     algorithm: 'gzip',
+  //   }),
+  // ],
 };

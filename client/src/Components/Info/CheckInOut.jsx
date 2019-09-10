@@ -107,7 +107,7 @@ class CheckInOutt extends React.Component {
         </CheckInOutContainer>
         {showCalendar
           ? (
-            <div>
+            <Div>
               {!inOut
                 ? (
                   <CalendarSvgOut>
@@ -136,7 +136,7 @@ class CheckInOutt extends React.Component {
                 setState={this.passProps}
                 inOut={inOut}
               />
-            </div>
+            </Div>
           )
 
           : null}
@@ -146,27 +146,30 @@ class CheckInOutt extends React.Component {
 }
 
 CheckInOutt.propTypes = {
-  dates: PropTypes.number,
+  // dates: PropTypes.number,
   ready: PropTypes.bool,
   monthID: PropTypes.number,
 };
 
 CheckInOutt.defaultProps = {
-  dates: null,
+  // dates: null,
   ready: false,
   monthID: null,
 };
+const Div = styled.div`
+  position: relative;
+`;
 
 const CalendarSvgIn = styled.svg`
   position: absolute;
   width: 20px;
   height: 10px;
-  left: 55px;
+  left: 25px;
   z-index: 2;
-  top: 162px;
+  // top: 162px;
 `;
 const CalendarSvgOut = styled(CalendarSvgIn)`
-  left: 230px;
+  left: 200px;
 `;
 
 const Arrow = styled.div`
