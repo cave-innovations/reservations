@@ -1,21 +1,20 @@
-# Project Name
+# Cave Inn
 
-> Project description
+embed GIF here
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/reservations/nearby
+  - https://github.com/reservations/photo-carousel
+  - https://github.com/reservations/reviews
 
 ## Table of Contents
 
-1. [Usage](#Usage)
+1. [Getting Started](#getting started)
 1. [Requirements](#requirements)
 1. [Development](#development)
 
-## Usage
+## Getting Started
 
 > Some usage instructions
 
