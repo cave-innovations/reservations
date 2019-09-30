@@ -1,6 +1,4 @@
 # Cave Inn
-![](cave-inn-demo.gif)
-
 <p align='center'>
   <img src="https://github.com/cave-innovations/reservations/blob/master/cave-inn-demo.gif" width="700px" align="center"/>
 </p>   
