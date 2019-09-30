@@ -1,6 +1,6 @@
 # Cave Inn
 <p align='center'>
-  ![](cave-inn-demo.gif)
+  {![](cave-inn-demo.gif)}
 </p>    
 
 
