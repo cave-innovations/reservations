@@ -3,6 +3,7 @@
   <div>![](cave-inn-demo.gif)</div>
 </p>    
 
+<blockquote class="imgur-embed-pub" lang="en" data-id="iMW68at"><a href="//imgur.com/iMW68at"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 ## Table of Contents
 
