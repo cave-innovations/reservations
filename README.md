@@ -1,6 +1,6 @@
 # Cave Inn
 
-<a href="//imgur.com/iMW68at"></a></blockquote><img async src="//s.imgur.com/min/embed.js" charset="utf-8">
+![](cave-inn-demo.gif)
 
 ## Table of Contents
 
