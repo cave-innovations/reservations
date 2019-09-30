@@ -1,6 +1,8 @@
 # Cave Inn
+<p align='center'>
+  ![](cave-inn-demo.gif)
+</p>    
 
-![](cave-inn-demo.gif)
 
 ## Table of Contents
 
