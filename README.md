@@ -22,7 +22,7 @@ npm run start
 
 ## Requirements
 
-- Node 6.13.0
+- Node.js
 - MySQL
 
 ## Related Projects
