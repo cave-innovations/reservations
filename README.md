@@ -27,6 +27,6 @@ npm run start
 
 ## Related Projects
 
-  - https://github.com/reservations/nearby
-  - https://github.com/reservations/photo-carousel
-  - https://github.com/reservations/reviews
+  - https://github.com/cave-innovations/nearby
+  - https://github.com/cave-innovations/photo-carousel
+  - https://github.com/cave-innovations/reviews
